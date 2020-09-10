@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:03:34 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/03/08 12:11:07 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:24:01 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		print_objs(t_conf *config)
 	t_cam		*cam;
 	t_light		*light;
 	t_obj		*obj;
-	t_sphere	*sphere;
+	t_sp		*sphere;
 
 	cam = config->cam;
 	light = config->lights;
@@ -34,7 +34,7 @@ int		print_objs(t_conf *config)
 	{
 		printf("%p :\n", cam);
 		printf("[%f, %f, %f] ; [%f, %f, %f] ; [%f, %f, %f] ; [%f]\n",
-			cam->coord.x, cam->coord.y, cam->coord.z,
+			cam->pos.x, cam->pos.y, cam->pos.z,
 			cam->vec.x, cam->vec.y, cam->vec.z,
 			cam->vup.x, cam->vup.y, cam->vup.z,
 			cam->fov);
@@ -43,7 +43,7 @@ int		print_objs(t_conf *config)
 	printf("\nLIGHTS :\n");
 	while (light)
 	{
-		printf("[%f, %f] ; [%f] ; [%f, %f, %f]\n", light->coord.x, light->coord.y,
+		printf("[%f, %f] ; [%f] ; [%f, %f, %f]\n", light->pos.x, light->pos.y,
 			light->ratio,
 			light->rgb.x, light->rgb.y, light->rgb.z);
 		light = light->next;
@@ -52,8 +52,8 @@ int		print_objs(t_conf *config)
 	while (obj)
 	{
 		sphere = obj->obj;
-		printf("[%f, %f, %f] ; [%f] ; ", sphere->center.x,
-		sphere->center.y, sphere->center.z, sphere->radius);
+		printf("[%f, %f, %f] ; [%f] ; ", sphere->pos.x,
+		sphere->pos.y, sphere->pos.z, sphere->radius);
 		printf("[%f, %f, %f]\n", sphere->mat_ptr->attenuation.x,
 			sphere->mat_ptr->attenuation.y, sphere->mat_ptr->attenuation.z);
 		obj = obj->next;

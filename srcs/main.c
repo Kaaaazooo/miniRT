@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:30:03 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:21:37 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_vec	*color(t_vec *dest, t_ray r, t_conf *conf, int depth)
 	t_hit_rec	rec;
 	float		t;
 
-	hit.r = r;
+	hit.ray = r;
 	hit.t_min = 0.001;
 	hit.t_max = FLT_MAX;
 	if (hit_any(conf->objs, &hit, &rec))

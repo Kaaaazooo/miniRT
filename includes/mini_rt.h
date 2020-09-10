@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:26:26 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:25:11 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:22:33 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 # include "libft.h"
 
 # include "vectors.h"
-# include "objects.h"
 # include "utils.h"
+# include "objects.h"
+# include "scene.h"
 # include "ray.h"
 # include "parser.h"
 # include "debug.h"
@@ -34,7 +35,6 @@
 
 typedef struct	s_quadratic_equation
 {
-
 	float	a;
 	float	b;
 	float	c;

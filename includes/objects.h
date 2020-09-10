@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 09:07:06 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:41:18 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:24:20 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@ typedef	struct	s_mlx
 	void	*win;
 }				t_mlx;
 
-typedef struct	s_coordinates
-{
-	int				x;
-	int				y;
-}				t_coord;
-
 typedef struct	s_hit
 {
 	struct s_ray			ray;
@@ -55,26 +49,12 @@ typedef struct	s_hit_rec
 	struct s_mat			*mat_ptr;
 }				t_hit_rec;
 
-typedef struct	s_ambient_light
-{
-	float			amb_rat;
-	t_vec			amb_rgb;
-}				t_amb_l;
-
 typedef struct	s_sphere
 {
 	t_vec					pos;
 	float					radius;
 	struct s_mat			*mat_ptr;
 }				t_sp;
-
-typedef struct	s_light
-{
-	t_vec					pos;
-	float					ratio;
-	t_vec					rgb;
-	struct s_light			*next;
-}				t_light;
 
 typedef struct	s_plane
 {
@@ -84,23 +64,21 @@ typedef struct	s_plane
 	struct s_mat			*mat_ptr;
 }				t_pl;
 
-typedef struct	s_configuration
+typedef struct	s_light
 {
-	t_coord			*res;
-	t_amb_l			*amb_l;
-	struct s_camera	*cam;
-	struct s_light	*lights;
-	struct s_obj_ls	*objs;
-	t_xor			seed;
-}				t_conf;
+	t_vec					pos;
+	float					ratio;
+	t_vec					rgb;
+	struct s_light			*next;
+}				t_light;
 
 typedef t_bool	(*t_func)(struct s_sphere *sp, t_hit *hit);
 
-typedef struct	s_obj_ls
+typedef struct	s_object_list
 {
 	char					type;
 	void					*obj;
-	struct s_obj_ls			*next;
+	struct s_object_list	*next;
 	t_func					f;
 }				t_obj;
 

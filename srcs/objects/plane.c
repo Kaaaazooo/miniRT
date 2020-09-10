@@ -6,13 +6,13 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 13:29:42 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:39:16 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:24:42 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_bool		hit_plane(t_plane *pl, t_hit *hit, t_hit_rec *rec)
+t_bool		hit_plane(t_pl *pl, t_hit *hit, t_hit_rec *rec)
 {
 	t_vec	normal;
 	t_vec	tmp;

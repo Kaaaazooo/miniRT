@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:31:22 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:29:06 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:14:43 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_vec	*v_mul(t_vec *dest, t_vec *v1, float m);
 t_vec	*v_prod(t_vec *dest, t_vec *v1, t_vec *v2);
 t_vec	*v_div(t_vec *dest, t_vec *v1, float m);
 
-float	v_len(t_vec *v);
 t_vec	*v_unit(t_vec *dest, t_vec *v1);
 t_vec	*v_cross(t_vec *dest, t_vec *v1, t_vec *v2);
 float	v_dot(t_vec *v1, t_vec *v2);
+float	v_len(t_vec *v);
 float	v_sqr_len(t_vec *v);
 
 #endif

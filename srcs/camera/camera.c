@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 10:48:46 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:30:47 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:23:13 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_cam	*init_cam(t_cam *cam, float aspect)
 	v_cross(&v, &cam->vec, &u);
 	v_mul(&cam->ho, &u, half_width);
 	v_mul(&cam->ve, &v, half_height);
-	v_sub(&cam->llc, &cam->coord, &cam->vec);
+	v_sub(&cam->llc, &cam->pos, &cam->vec);
 	v_sub(&cam->llc, &cam->llc, &cam->ho);
 	v_sub(&cam->llc, &cam->llc, &cam->ve);
 	v_mul(&cam->ho, &u, 2 * half_width);
