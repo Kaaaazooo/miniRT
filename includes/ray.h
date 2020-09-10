@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:56:23 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:37:35 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:36:35 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,21 @@ typedef struct	s_ray
 	t_vec	pos;
 	t_vec	dir;
 }				t_ray;
+
+typedef struct	s_hit
+{
+	struct s_ray			ray;
+	float					t_min;
+	float					t_max;
+}				t_hit;
+
+typedef struct	s_hit_rec
+{
+	float					t;
+	t_vec					p;
+	t_vec					normal;
+	struct s_mat			*mat_ptr;
+}				t_hit_rec;
 
 typedef struct	s_camera
 {

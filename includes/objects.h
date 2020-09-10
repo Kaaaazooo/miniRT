@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 09:07:06 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 13:24:20 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:36:24 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,6 @@
 # define A 64
 # define C 128
 # define L 256
-
-typedef	struct	s_mlx
-{
-	void	*ptr;
-	void	*win;
-}				t_mlx;
-
-typedef struct	s_hit
-{
-	struct s_ray			ray;
-	float					t_min;
-	float					t_max;
-}				t_hit;
-
-typedef struct	s_hit_rec
-{
-	float					t;
-	t_vec					p;
-	t_vec					normal;
-	struct s_mat			*mat_ptr;
-}				t_hit_rec;
 
 typedef struct	s_sphere
 {

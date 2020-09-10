@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 13:15:40 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 13:22:58 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:27:59 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define SCENE_H
 
 # include "mini_rt.h"
+
+typedef	struct	s_mlx
+{
+	void	*ptr;
+	void	*win;
+}				t_mlx;
 
 typedef struct	s_coordinates
 {

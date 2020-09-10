@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:26:54 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:32:02 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:35:49 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ typedef struct	s_mat
 	char				type;
 }				t_mat;
 
-t_vec		*reflect(t_vec *dest,
-					t_vec *v1, t_vec *v2);
-t_bool			scatter_metal(t_ray *ray_in, struct s_hit_rec *rec,
-													struct s_xor *seed);
-t_bool			scatter_lambert(struct s_hit_rec *rec, struct s_xor *seed);
-t_bool			scatter(struct s_hit_rec *rec, struct s_xor *seed,
-														t_ray *ray_in);
+t_vec		*reflect(t_vec *dest, t_vec *v1, t_vec *v2);
+t_bool		scatter_metal(t_ray *ray_in, struct s_hit_rec *rec,
+												struct s_xor *seed);
+t_bool		scatter_lambert(struct s_hit_rec *rec, struct s_xor *seed);
+t_bool		scatter(struct s_hit_rec *rec, struct s_xor *seed, t_ray *ray_in);
 
 #endif
