@@ -1,0 +1,12 @@
+conv_functions.c
+conv_functions2.c
+double_functions.c
+double_functions2.c
+double_functions3.c
+double_functions4.c
+flags_functions.c
+ft_printf.c
+ft_printf_utils.c
+length_modifiers.c
+num_functions.c
+parse.c
