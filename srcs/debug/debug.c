@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:03:34 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 13:24:01 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/11 09:57:30 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		print_objs(t_conf *config)
 	t_cam		*cam;
 	t_light		*light;
 	t_obj		*obj;
-	t_sp		*sphere;
 
 	cam = config->cam;
 	light = config->lights;
@@ -51,11 +50,14 @@ int		print_objs(t_conf *config)
 	printf("OBJECTS :\n");
 	while (obj)
 	{
-		sphere = obj->obj;
-		printf("[%f, %f, %f] ; [%f] ; ", sphere->pos.x,
-		sphere->pos.y, sphere->pos.z, sphere->radius);
-		printf("[%f, %f, %f]\n", sphere->mat_ptr->attenuation.x,
-			sphere->mat_ptr->attenuation.y, sphere->mat_ptr->attenuation.z);
+		if (obj->type == SP)
+		{
+			printf("[%f, %f, %f] ; [%f] ; ", ((t_sp *)(obj->obj))->pos.x,
+			((t_sp *)(obj->obj))->pos.y, ((t_sp *)(obj->obj))->pos.z,
+			((t_sp *)(obj->obj))->radius);
+			printf("[%f, %f, %f]\n", ((t_sp *)(obj->obj))->mat_ptr->attenuation.x,
+				((t_sp *)(obj->obj))->mat_ptr->attenuation.y, ((t_sp *)(obj->obj))->mat_ptr->attenuation.z);
+		}
 		obj = obj->next;
 	}
 	printf("STOP\n");
