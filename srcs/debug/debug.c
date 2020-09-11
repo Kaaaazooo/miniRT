@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:03:34 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/11 09:57:30 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/11 10:23:27 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,19 @@ int		print_objs(t_conf *config)
 	{
 		if (obj->type == SP)
 		{
-			printf("[%f, %f, %f] ; [%f] ; ", ((t_sp *)(obj->obj))->pos.x,
+			printf("SP : [%f, %f, %f] ; [%f] ; ", ((t_sp *)(obj->obj))->pos.x,
 			((t_sp *)(obj->obj))->pos.y, ((t_sp *)(obj->obj))->pos.z,
 			((t_sp *)(obj->obj))->radius);
 			printf("[%f, %f, %f]\n", ((t_sp *)(obj->obj))->mat_ptr->attenuation.x,
 				((t_sp *)(obj->obj))->mat_ptr->attenuation.y, ((t_sp *)(obj->obj))->mat_ptr->attenuation.z);
+		}
+		else if (obj->type == PL)
+		{
+			printf("PL : [%f, %f, %f] ; [%f, %f, %f] ; ", ((t_pl *)(obj->obj))->pos.x,
+			((t_pl *)(obj->obj))->pos.y, ((t_pl *)(obj->obj))->pos.z,
+			((t_pl *)(obj->obj))->ori.x, ((t_pl *)(obj->obj))->ori.y, ((t_pl *)(obj->obj))->ori.z);
+			printf("[%f, %f, %f]\n", ((t_pl *)(obj->obj))->mat_ptr->attenuation.x,
+				((t_pl *)(obj->obj))->mat_ptr->attenuation.y, ((t_pl *)(obj->obj))->mat_ptr->attenuation.z);
 		}
 		obj = obj->next;
 	}
