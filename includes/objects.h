@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 09:07:06 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 16:44:39 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:01:03 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct	s_square
 	t_vec			pos;
 	t_vec			ori;
 	float			size;
-	t_vec			rgb;
+	struct s_mat	*mat_ptr;
 }				t_sq;
 
 typedef struct	s_cylinder

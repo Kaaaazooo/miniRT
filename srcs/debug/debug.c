@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:03:34 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/11 10:23:27 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:00:39 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,15 @@ int		print_objs(t_conf *config)
 			((t_pl *)(obj->obj))->ori.x, ((t_pl *)(obj->obj))->ori.y, ((t_pl *)(obj->obj))->ori.z);
 			printf("[%f, %f, %f]\n", ((t_pl *)(obj->obj))->mat_ptr->attenuation.x,
 				((t_pl *)(obj->obj))->mat_ptr->attenuation.y, ((t_pl *)(obj->obj))->mat_ptr->attenuation.z);
+		}
+		else if (obj->type == SQ)
+		{
+			printf("SQ : [%f, %f, %f] ; [%f, %f, %f] ; [%f] ; ", ((t_sq *)(obj->obj))->pos.x,
+			((t_sq *)(obj->obj))->pos.y, ((t_sq *)(obj->obj))->pos.z,
+			((t_sq *)(obj->obj))->ori.x, ((t_sq *)(obj->obj))->ori.y, ((t_sq *)(obj->obj))->ori.z,
+			((t_sq *)(obj->obj))->size);
+			printf("[%f, %f, %f]\n", ((t_sq *)(obj->obj))->mat_ptr->attenuation.x,
+				((t_sq *)(obj->obj))->mat_ptr->attenuation.y, ((t_sq *)(obj->obj))->mat_ptr->attenuation.z);
 		}
 		obj = obj->next;
 	}
