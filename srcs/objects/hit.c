@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 11:44:07 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/11 10:25:11 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:08:29 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_bool		check_hit(t_obj *objs, t_hit *hit, t_hit_rec *rec)
 	if (objs->type & PL)
 		return (hit_plane(objs->obj, hit, rec));
 	if (objs->type & SQ)
-		return (0);
+		return (hit_square(objs->obj, hit, rec));
 	if (objs->type & CY)
 		return (0);
 	if (objs->type & TR)

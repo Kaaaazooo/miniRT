@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 13:02:49 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/11 13:58:47 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:09:52 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ t_bool		hit_square(t_sq *sq, t_hit *hit, t_hit_rec *rec)
 		return (FALSE);
 	rec->t = t;
 	rec->p = p;
+	rec->mat_ptr = sq->mat_ptr;
 	tmp = v_dot(&hit->ray.dir, &sq->ori);
 	rec->normal = sq->ori;
 	if (tmp >= 0)
