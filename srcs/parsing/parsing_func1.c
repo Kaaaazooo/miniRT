@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:49:02 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 14:05:15 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 16:01:11 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,20 +118,28 @@ int		parse_cy(t_obj **objs, char *str)
 int		parse_tr(t_obj **objs, char *str)
 {
 	t_obj	*tmp;
-	t_sp	*sphere;
+	t_obj	*new;
+	t_tr	*triangle;
 
 	tmp = *objs;
-	while (tmp)
-		tmp = tmp->next;
-	if (!(tmp = malloc(sizeof(tmp))))
+	if (!(new = malloc(sizeof(t_obj))))
 		ft_handle_error("malloc failed\n");
-	tmp->type = SP;
-	if (!(sphere = malloc(sizeof(sphere))))
+	new->type = TR;
+	if (!(triangle = malloc(sizeof(t_tr))) ||
+				!(triangle->mat_ptr = malloc(sizeof(t_mat))))
 		ft_handle_error("malloc failed\n");
-	sphere->pos = skip_atov(&str);
-	sphere->pos.x *= -1;
-	sphere->radius = skip_atof(&str);
+	triangle->point0 = skip_atov(&str);
+	triangle->point0.x *= -1;
+	triangle->point1 = skip_atov(&str);
+	triangle->point1.x *= -1;
+	triangle->point2 = skip_atov(&str);
+	triangle->point2.x *= -1;
+	parse_mat(&str, triangle->mat_ptr);
+	new->obj = triangle;
+	new->next = 0;
 	if (!*objs)
-		*objs = tmp;
-	return (1);
+		return ((*objs = new) > 0);
+	while (tmp->next)
+		tmp = tmp->next;
+	return ((tmp->next = new) > 0);
 }

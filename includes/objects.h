@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 09:07:06 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/12 15:07:48 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 15:58:11 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ typedef struct	s_cylinder
 
 typedef struct	s_triangle
 {
+	t_vec			point0;
 	t_vec			point1;
 	t_vec			point2;
-	t_vec			point3;
-	t_vec			rgb;
+	t_vec			ori;
+	struct s_mat	*mat_ptr;
 }				t_tr;
 
 typedef struct	s_light
