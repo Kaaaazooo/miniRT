@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 11:40:37 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:34:56 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/17 10:12:29 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_obj	*new_obj(char type, void *object, t_obj *next, t_func f)
 	t_obj	*obj;
 
 	if (!(obj = malloc(sizeof(obj))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	obj->type = type;
 	obj->obj = object;
 	obj->next = next;

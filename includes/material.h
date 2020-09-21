@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:26:54 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 14:35:49 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/14 10:10:37 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ typedef struct	s_mat
 	float				fuzz;
 	char				type;
 }				t_mat;
+
+typedef struct	s_phong
+{
+	t_vec				ambient;
+	t_vec				diffuse;
+	t_vec				specular;
+}				t_phong;
 
 t_vec		*reflect(t_vec *dest, t_vec *v1, t_vec *v2);
 t_bool		scatter_metal(t_ray *ray_in, struct s_hit_rec *rec,

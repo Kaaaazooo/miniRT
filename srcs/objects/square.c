@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 13:02:49 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/11 14:09:52 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 12:35:26 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,41 @@ float		inter_plane(t_hit *hit, t_sq *square)
 
 t_bool		hit_square(t_sq *sq, t_hit *hit, t_hit_rec *rec)
 {
+	float	t1;
+	float	t2;
+	float	tmp;
+	t_vec	tmp_vec;
+
+	if (!(t1 = inter_plane(hit, sq)))
+		return (FALSE);
+	v_add(&tmp_vec, v_mul(&tmp_vec, &hit->ray.dir, t1), &hit->ray.pos);
+	v_sub(&tmp_vec, &tmp_vec, &sq->pos);
+	tmp_vec.x *= tmp_vec.x < 0 ? -1 : 1;
+	tmp_vec.y *= tmp_vec.y < 0 ? -1 : 1;
+	tmp_vec.z *= tmp_vec.z < 0 ? -1 : 1;
+	if ((tmp_vec.x > (t2 = sq->size / 2)) || tmp_vec.y > t2 || tmp_vec.z > t2)
+		return (FALSE);
+	rec->t = t1;
+	pt_at_param(&rec->p, &hit->ray, rec->t);
+	rec->mat_ptr = sq->mat_ptr;
+	tmp = v_dot(&hit->ray.dir, &sq->ori);
+	v_mul(&rec->normal, &sq->ori, tmp >= 0 ? -1 : 1);
+	v_unit(&rec->normal, &rec->normal);
+	return (TRUE);
+}
+
+	/*a = v_dot(v_sub(&tmp_vec, &hit->ray.pos, &sq->pos), &sq->ori);
+	b = v_dot(&hit->ray.dir, &sq->ori);
+	if (b == 0 || (a < 0 && b < 0) || (a > 0 && b > 0))
+		return (FALSE);
+	t1 = -a / b;
+	if (t1 >= hit->t_max && t1 <= hit->t_min)
+		return (FALSE);*/
+
+//		
+/*
+t_bool		hit_square(t_sq *sq, t_hit *hit, t_hit_rec *rec)
+{
 	float	t;
 	float	a;
 	float	tmp;
@@ -92,11 +127,11 @@ t_bool		hit_square(t_sq *sq, t_hit *hit, t_hit_rec *rec)
 		(p.z <= tmp_vec.z && p.z >= tmp_vec.y)))
 		return (FALSE);
 	rec->t = t;
-	rec->p = p;
+	pt_at_param(&rec->p, &hit->ray, rec->t);
 	rec->mat_ptr = sq->mat_ptr;
 	tmp = v_dot(&hit->ray.dir, &sq->ori);
 	rec->normal = sq->ori;
 	if (tmp >= 0)
 		v_mul(&rec->normal, &sq->ori, -1);
 	return (TRUE);
-}
+}*/

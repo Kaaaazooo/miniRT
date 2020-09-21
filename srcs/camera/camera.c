@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 10:48:46 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 13:23:13 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/18 10:39:02 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ t_cam	*init_cam(t_cam *cam, float aspect)
 
 	if (!cam)
 		return (0);
+	theta = cam->fov * (M_PI / 180);
+	theta = 2 * atan(tan(theta / 2) * aspect);
 	v_unit(&cam->vec, &cam->vec);
-	theta = cam->fov * M_PI / 180;
 	half_height = tan(theta / 2);
 	half_width = aspect * half_height;
 	v_unit(&u, v_cross(&u, &cam->vup, &cam->vec));

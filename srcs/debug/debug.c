@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:03:34 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/11 14:00:39 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 10:39:49 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		print_objs(t_conf *config)
 	printf("\nRESOLUTION :\n");
 	printf("[%d, %d]\n", config->res->x, config->res->y);
 	printf("\nAMBIENT LIGHT :\n");
-	printf("[%f] ; [%f, %f, %f]\n", config->amb_l->amb_rat,
-			config->amb_l->amb_rgb.x, config->amb_l->amb_rgb.y,
-			config->amb_l->amb_rgb.z);
+	printf("[%f] ; [%f, %f, %f]\n", config->amb_l->ratio,
+			config->amb_l->rgb.x, config->amb_l->rgb.y,
+			config->amb_l->rgb.z);
 	printf("\nCAMERAS :\n");
 	while (cam)
 	{
@@ -42,8 +42,8 @@ int		print_objs(t_conf *config)
 	printf("\nLIGHTS :\n");
 	while (light)
 	{
-		printf("[%f, %f] ; [%f] ; [%f, %f, %f]\n", light->pos.x, light->pos.y,
-			light->ratio,
+		printf("[%f, %f, %f] ; [%f] ; [%f, %f, %f]\n", light->pos.x, light->pos.y,
+			light->pos.z, light->ratio,
 			light->rgb.x, light->rgb.y, light->rgb.z);
 		light = light->next;
 	}
@@ -77,6 +77,6 @@ int		print_objs(t_conf *config)
 		}
 		obj = obj->next;
 	}
-	printf("STOP\n");
+	printf("debug ok\n");
 	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/10 19:12:22 by sabrugie          #+#    #+#              #
-#    Updated: 2020/09/11 13:49:49 by sabrugie         ###   ########.fr        #
+#    Updated: 2020/09/17 10:06:03 by sabrugie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ LDFLAGS = -L $(LIBFT_P) -lft -L $(MLX_P) -lmlx \
 		  -framework OpenGL -framework AppKit -lm
 
 CAM = $(addprefix camera/, camera.c)
-ERROR = $(addprefix check_error/, check_error.c)
 DEBUG = $(addprefix debug/, debug.c)
+ERROR = $(addprefix check_error/, check_error.c)
 MATERIAL = $(addprefix material/, material.c scatter.c)
 OBJECTS = $(addprefix objects/, hit.c objects.c plane.c sphere.c square.c)
 PARSE = $(addprefix parsing/, parser.c parsing_func1.c parsing_func2.c)

@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:49:02 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/11 14:05:17 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/17 11:11:19 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ int		parse_sp(t_obj **objs, char *str)
 
 	tmp = *objs;
 	if (!(new = malloc(sizeof(t_obj))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	new->type = SP;
 	if (!(sphere = malloc(sizeof(t_sp))) ||
 				!(sphere->mat_ptr = malloc(sizeof(t_mat))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	sphere->pos = skip_atov(&str);
-	sphere->radius = skip_atof(&str);
+	sphere->pos.x *= -1;
+	sphere->radius = skip_atof(&str) / 2;
 	parse_mat(&str, sphere->mat_ptr);
 	new->obj = sphere;
 	new->next = 0;
@@ -46,12 +47,13 @@ int		parse_pl(t_obj **objs, char *str)
 
 	tmp = *objs;
 	if (!(new = malloc(sizeof(t_obj))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	new->type = PL;
 	if (!(plane = malloc(sizeof(t_pl))) ||
 				!(plane->mat_ptr = malloc(sizeof(t_mat))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	plane->pos = skip_atov(&str);
+	plane->pos.x *= -1;
 	plane->ori = skip_atov(&str);
 	parse_mat(&str, plane->mat_ptr);
 	new->obj = plane;
@@ -72,12 +74,13 @@ int		parse_sq(t_obj **objs, char *str)
 
 	tmp = *objs;
 	if (!(new = malloc(sizeof(t_obj))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	new->type = SQ;
 	if (!(square = malloc(sizeof(t_sq))) ||
 				!(square->mat_ptr = malloc(sizeof(t_mat))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	square->pos = skip_atov(&str);
+	square->pos.x *= -1;
 	square->ori = skip_atov(&str);
 	square->size = skip_atof(&str);
 	parse_mat(&str, square->mat_ptr);
@@ -100,11 +103,12 @@ int		parse_cy(t_obj **objs, char *str)
 	while (tmp)
 		tmp = tmp->next;
 	if (!(tmp = malloc(sizeof(tmp))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	tmp->type = SP;
 	if (!(sphere = malloc(sizeof(sphere))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	sphere->pos = skip_atov(&str);
+	sphere->pos.x *= -1;
 	sphere->radius = skip_atof(&str);
 	if (!*objs)
 		*objs = tmp;
@@ -120,11 +124,12 @@ int		parse_tr(t_obj **objs, char *str)
 	while (tmp)
 		tmp = tmp->next;
 	if (!(tmp = malloc(sizeof(tmp))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	tmp->type = SP;
 	if (!(sphere = malloc(sizeof(sphere))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	sphere->pos = skip_atov(&str);
+	sphere->pos.x *= -1;
 	sphere->radius = skip_atof(&str);
 	if (!*objs)
 		*objs = tmp;

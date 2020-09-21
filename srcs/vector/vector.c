@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:39:13 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:54:03 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/17 10:16:43 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_vec	*alloc_vec(float x, float y, float z)
 	t_vec	*vec;
 
 	if (!(vec = malloc(sizeof(vec))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;

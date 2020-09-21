@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 12:12:27 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:50:37 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/17 10:58:51 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ t_ray	*get_ray(t_ray *ray, t_cam *cam, float u, float v)
 	v_sub(&ray->dir, &ray->dir, &cam->pos);
 	return (ray);
 }
+
+/*t_ray	*get_ray(t_ray *ray, t_cam *cam, float u, float v)
+{
+	t_vec	tmp1;
+	t_vec	tmp2;
+
+	ray->pos = cam->pos;
+	v_mul(&tmp1, &cam->ho, u);
+	v_mul(&tmp2, &cam->ve, v);
+	v_add(&ray->dir, &tmp1, &tmp2);
+	v_add(&ray->dir, &ray->dir, &cam->llc);
+	v_sub(&ray->dir, &ray->dir, &cam->pos);
+	return (ray);
+}*/
 
 t_vec	*pt_at_param(t_vec *dest, t_ray *r, float t)
 {

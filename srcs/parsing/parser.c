@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 11:17:59 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/03/08 12:14:59 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/18 10:30:12 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_conf	*init_conf(void)
 	t_conf	*config;
 
 	if (!(config = malloc(sizeof(t_conf))))
-		ft_handle_error(ALLOC_FAIL);
+		ft_handle_error("malloc failed\n");
 	config->res = 0;
 	config->amb_l = 0;
 	config->cam = 0;
@@ -46,7 +46,7 @@ int		parse(t_conf *config, char *str)
 		return (parse_cy(&config->objs, str + 2));
 	else if (str[0] == 't' && str[1] == 'r')
 		return (parse_tr(&config->objs, str + 2));
-	return (ft_handle_error(WRONG_INPT));
+	return (ft_handle_error("Wrong input\n"));
 }
 
 t_conf	*read_file(char *filename)
@@ -70,8 +70,11 @@ t_conf	*read_file(char *filename)
 	if (fd < 0)
 		free(config);
 	free(line);
-	init_cam(config->cam, config->res->x / config->res->y);
+	if (!config->res)
+		ft_handle_error("No resolution\n");
+
+	init_cam(config->cam, (float)config->res->x / (float)config->res->y);
 	if (!config->cam)
-		ft_handle_error(NO_CAM);
+		ft_handle_error("No camera\n");
 	return (config);
 }

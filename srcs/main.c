@@ -6,64 +6,177 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 13:21:37 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 13:21:43 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_vec	*color(t_vec *dest, t_ray r, t_conf *conf, int depth)
+/*t_vec	*get_light_at(t_vec *color, t_light *light, t_hit_rec *rec)
 {
-	t_vec		tmp;
-	t_vec		tmp2;
-	t_hit		hit;
-	t_hit_rec	rec;
-	float		t;
+	t_vec	light_vector;
+	t_vec	tmp_color;
+	float	angle;
 
-	hit.ray = r;
+	v_sub(&light_vector, &rec->p, &light->pos);
+	v_div(&light_vector, &light_vector, v_len(&light_vector));
+	angle = v_dot(&rec->normal, v_mul(&light_vector, &light_vector, -1));
+	new_vec(&tmp_color, 0, 0, 0);
+	if (angle < 0)
+		return (v_add(color, color, &tmp_color));
+	v_prod(&tmp_color, &rec->mat_ptr->attenuation, &light->rgb);
+	v_mul(&tmp_color, &tmp_color, angle * light->ratio);
+	return (v_add(color, color, &tmp_color));
+}*/
+
+float	hit_light(t_conf *conf, t_light *light, t_vec *light_v, t_hit_rec *rec)
+{
+	t_hit		hit;
+	t_hit_rec	l_rec;
+
+	if (rec->mat_ptr->type != PL && rec->mat_ptr->type != SQ &&
+		rec->mat_ptr->type != TR)
+		return (1);
 	hit.t_min = 0.001;
 	hit.t_max = FLT_MAX;
-	if (hit_any(conf->objs, &hit, &rec))
-	{
-		if (depth < 19 && scatter(&rec, &conf->seed, &r))
-			return (v_prod(dest, &conf->amb_l->amb_rgb, v_prod(dest,
-								&rec.mat_ptr->attenuation, color(dest,
-								rec.mat_ptr->scattered, conf, depth + 1))));
-		else
-			return (new_vec(dest, 0, 0, 0));
-	}
-	v_unit(&tmp, &r.dir);
-	t = 0.5 * (tmp.y + 1);
-	v_mul(&tmp, new_vec(&tmp2, 1, 1, 1), (1 - t) * conf->amb_l->amb_rat);
-	v_prod(&tmp2, new_vec(&tmp2, 0.5, 0.7, 1.0), &conf->amb_l->amb_rgb);
-	v_mul(&tmp2, &tmp2, t);
-	return (v_add(dest, &tmp, &tmp2));
+	hit.ray.pos = light->pos;
+	hit.ray.dir = *light_v;
+	if (hit_any(conf->objs, &hit, &l_rec) && l_rec.t != FLT_MAX)
+		if (rec->mat_ptr != l_rec.mat_ptr)
+			return (1);
+	return (-1);
 }
 
-t_vec	*ft_anti_aliasing(t_vec *col, t_ray *r, t_coord *coord, t_conf *conf)
+/*t_vec	*get_light_at(t_vec *color, t_conf *conf, t_hit_rec *rec)
 {
-	t_vec	save;
-	int		s;
-	float	u;
-	float	v;
+	float	dot;
+	t_vec	tmp_v;
+	t_vec	light_v;
+	t_light	*light;
 
-	s = 0;
-	u = 0;
-	v = 0;
-	new_vec(col, 0, 0, 0);
-	while (s < 49)
+	light = conf->lights;
+	while (light)
 	{
-		u = (float)(coord->x + my_rand(&conf->seed)) / (float)conf->res->x;
-		v = (float)(coord->y + my_rand(&conf->seed)) / (float)conf->res->y;
-		get_ray(r, conf->cam, u, v);
-		v_add(col, col, color(&save, *r, conf, 0));
-		s++;
+		v_unit(&light_v, v_sub(&light_v, &rec->p, &light->pos));
+		dot = v_dot(&rec->normal, &light_v);
+		dot *= hit_light(conf, light, &light_v, rec);
+		if (dot > 0)
+		{
+			v_add(color, color, v_prod(&tmp_v, v_mul(&tmp_v,
+								&light->rgb, light->ratio), color));
+		}
+		light = light->next;
 	}
-	v_div(col, col, 49);
-	col->x = sqrt(col->x);
-	col->y = sqrt(col->y);
-	col->z = sqrt(col->z);
-	return (col);
+	return (color);
+}
+*/
+
+/*
+t_vec	*get_light_at(t_vec *color, t_light *light, t_hit_rec *rec)
+{
+	float	dot;
+	t_vec	tmp_v;
+
+	v_div(&tmp_v, v_sub(&tmp_v, &light->pos, &rec->p), v_len(&tmp_v));
+	dot = v_dot(&rec->normal, &tmp_v);
+	if (dot > 0)
+	{
+		v_mul(&tmp_v, &light->rgb, light->ratio * dot);
+		v_add(color, color, v_prod(&tmp_v, &tmp_v, &rec->mat_ptr->attenuation));
+	}
+	return (color);
+}
+
+t_vec	*pixel_color(t_vec *color, t_ray ray, t_conf *conf)
+{
+	t_hit		hit;
+	t_hit_rec	rec;
+	t_hit_rec	light_rec;
+	t_light		*light;
+	t_bool		light_blocked;
+
+	hit.ray = ray;
+	hit.t_min = 0.001;
+	hit.t_max = FLT_MAX;
+	new_vec(color, 0, 0, 0);
+	if (hit_any(conf->objs, &hit, &rec) == FALSE)
+		return (color);
+	light = conf->lights;
+	v_prod(color, &rec.mat_ptr->attenuation, &conf->amb_l->rgb);
+	v_mul(color, color, conf->amb_l->amb_rat);
+	return (color);
+}
+*/
+/* ********************************************************* */
+
+t_vec	*get_light_at(t_vec *color, t_conf *conf, t_light *light,
+														t_hit_rec *rec)
+{
+	float		dot;
+	t_vec		tmp_v;
+	t_hit		hit;
+	t_hit_rec	l_rec;
+
+	hit.t_min = 0.001;
+	hit.ray.pos = rec->p;
+	while (light)
+	{
+		hit.t_max = v_len(v_sub(&tmp_v, &light->pos, &rec->p));
+		v_unit(&hit.ray.dir, v_sub(&hit.ray.dir, &light->pos, &rec->p));
+		dot = v_dot(&rec->normal, &hit.ray.dir);
+		if (!hit_any(conf->objs, &hit, &l_rec) || l_rec.mat_ptr == rec->mat_ptr)
+				if (dot > 0)
+				{
+					v_mul(&tmp_v, &light->rgb, light->ratio * dot);
+					v_add(color, color, v_prod(&tmp_v, &tmp_v,
+											&rec->mat_ptr->attenuation));
+				}
+		light = light->next;
+	}
+	color->x = color->x > 1 ? 1 : color->x;
+	color->y = color->y > 1 ? 1 : color->y;
+	color->z = color->z > 1 ? 1 : color->z;
+	return (color);
+}
+
+t_vec	*pixel_color(t_vec *color, t_ray ray, t_conf *conf)
+{
+	t_hit		hit;
+	t_hit_rec	rec;
+	t_light		*light;
+
+	hit.t_min = 0.001;
+	hit.t_max = FLT_MAX;
+	hit.ray = ray;
+	new_vec(color, 0, 0, 0);
+	if (hit_any(conf->objs, &hit, &rec))
+	{
+		v_prod(color, &rec.mat_ptr->attenuation,
+					v_mul(color, &conf->amb_l->rgb, conf->amb_l->ratio));
+		light = conf->lights;
+		get_light_at(color, conf, light, &rec);
+	}
+	return (color);
+}
+
+void	render(t_conf *conf, t_mlx *mlx, t_coord coord)
+{
+	t_ray	ray;
+	t_vec	color;
+
+	while (coord.x < conf->res->x)
+	{
+		coord.y = conf->res->y;
+		while (coord.y)
+		{
+			get_ray(&ray, conf->cam, (float)(coord.x) / (float)(conf->res->x),
+									(float)(coord.y) / (float)(conf->res->y));
+			pixel_color(&color, ray, conf);
+			mlx_pixel_put(mlx->ptr, mlx->win,
+			coord.x, conf->res->y - coord.y--, v_rgb(&color));
+		}
+		++coord.x;
+	}
 }
 
 int		main(int ac, char **av)
@@ -71,27 +184,20 @@ int		main(int ac, char **av)
 	t_conf	*conf;
 	t_coord	coord;
 	t_mlx	mlx;
-	t_ray	r;
-	t_vec	col;
 
-	check_arg(ac, av[1], &mlx);
+	check_arg(ac, av[1]);
+	if (!(mlx.ptr = mlx_init()))
+		ft_handle_error("Minilibx failed to initialize\n");
 	coord.x = 0;
 	conf = read_file(av[1]);
 	conf->seed.a += conf->seed.a ? 0 : (unsigned int)conf;
 	print_objs(conf);
-	mlx.win = mlx_new_window(mlx.ptr, conf->res->x, conf->res->y, "miniRT");
-	while (coord.x < conf->res->x)
-	{
-		coord.y = conf->res->y;
-		while (coord.y)
-		{
-			ft_anti_aliasing(&col, &r, &coord, conf);
-			mlx_pixel_put(mlx.ptr, mlx.win,
-			coord.x, conf->res->y - coord.y--, v_rgb(&col));
-		}
-		++coord.x;
-	}
-	printf("ok\n");
+	if (!(mlx.win = mlx_new_window(mlx.ptr, conf->res->x,
+								conf->res->y, "my_miniRT")))
+		ft_handle_error("Minilibx failed to create a new window\n");
+	render(conf, &mlx, coord);
+	printf("Rendering finished\n");
 	mlx_loop(mlx.ptr);
+	exit(0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 11:44:07 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/11 14:08:29 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 09:35:53 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,15 @@ t_bool		hit_any(t_obj *objs, t_hit *hit, t_hit_rec *rec)
 	ret = FALSE;
 	if (!(tmp = objs))
 		return (FALSE);
-	while (objs)
+	while (tmp)
 	{
-		if (check_hit(objs, hit, &tmp_rec))
+		if (check_hit(tmp, hit, &tmp_rec))
 		{
 			ret = TRUE;
 			hit->t_max = tmp_rec.t;
 			*rec = tmp_rec;
 		}
-		objs = objs->next;
+		tmp = tmp->next;
 	}
-	objs = tmp;
 	return (ret);
 }
