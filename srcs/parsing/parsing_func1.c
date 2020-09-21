@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:49:02 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/17 11:11:19 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 14:05:15 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		parse_cy(t_obj **objs, char *str)
 
 int		parse_tr(t_obj **objs, char *str)
 {
-	t_obj		*tmp;
+	t_obj	*tmp;
 	t_sp	*sphere;
 
 	tmp = *objs;

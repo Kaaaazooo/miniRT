@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 11:17:59 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/18 10:30:12 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 13:57:09 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ t_conf	*read_file(char *filename)
 	char	*line;
 	t_conf	*config;
 
-	fd = open(filename, O_RDONLY);
+	if ((fd = open(filename, O_RDONLY)) < 0)
+		ft_handle_error("Cannot open file\n");
 	config = init_conf();
 	line = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
@@ -67,12 +68,9 @@ t_conf	*read_file(char *filename)
 	}
 	if (*line && fd >= 0)
 		parse(config, line);
-	if (fd < 0)
-		free(config);
 	free(line);
 	if (!config->res)
 		ft_handle_error("No resolution\n");
-
 	init_cam(config->cam, (float)config->res->x / (float)config->res->y);
 	if (!config->cam)
 		ft_handle_error("No camera\n");

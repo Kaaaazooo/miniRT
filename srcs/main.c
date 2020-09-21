@@ -6,28 +6,11 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 13:21:43 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 13:55:59 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
-/*t_vec	*get_light_at(t_vec *color, t_light *light, t_hit_rec *rec)
-{
-	t_vec	light_vector;
-	t_vec	tmp_color;
-	float	angle;
-
-	v_sub(&light_vector, &rec->p, &light->pos);
-	v_div(&light_vector, &light_vector, v_len(&light_vector));
-	angle = v_dot(&rec->normal, v_mul(&light_vector, &light_vector, -1));
-	new_vec(&tmp_color, 0, 0, 0);
-	if (angle < 0)
-		return (v_add(color, color, &tmp_color));
-	v_prod(&tmp_color, &rec->mat_ptr->attenuation, &light->rgb);
-	v_mul(&tmp_color, &tmp_color, angle * light->ratio);
-	return (v_add(color, color, &tmp_color));
-}*/
 
 float	hit_light(t_conf *conf, t_light *light, t_vec *light_v, t_hit_rec *rec)
 {
@@ -47,68 +30,6 @@ float	hit_light(t_conf *conf, t_light *light, t_vec *light_v, t_hit_rec *rec)
 	return (-1);
 }
 
-/*t_vec	*get_light_at(t_vec *color, t_conf *conf, t_hit_rec *rec)
-{
-	float	dot;
-	t_vec	tmp_v;
-	t_vec	light_v;
-	t_light	*light;
-
-	light = conf->lights;
-	while (light)
-	{
-		v_unit(&light_v, v_sub(&light_v, &rec->p, &light->pos));
-		dot = v_dot(&rec->normal, &light_v);
-		dot *= hit_light(conf, light, &light_v, rec);
-		if (dot > 0)
-		{
-			v_add(color, color, v_prod(&tmp_v, v_mul(&tmp_v,
-								&light->rgb, light->ratio), color));
-		}
-		light = light->next;
-	}
-	return (color);
-}
-*/
-
-/*
-t_vec	*get_light_at(t_vec *color, t_light *light, t_hit_rec *rec)
-{
-	float	dot;
-	t_vec	tmp_v;
-
-	v_div(&tmp_v, v_sub(&tmp_v, &light->pos, &rec->p), v_len(&tmp_v));
-	dot = v_dot(&rec->normal, &tmp_v);
-	if (dot > 0)
-	{
-		v_mul(&tmp_v, &light->rgb, light->ratio * dot);
-		v_add(color, color, v_prod(&tmp_v, &tmp_v, &rec->mat_ptr->attenuation));
-	}
-	return (color);
-}
-
-t_vec	*pixel_color(t_vec *color, t_ray ray, t_conf *conf)
-{
-	t_hit		hit;
-	t_hit_rec	rec;
-	t_hit_rec	light_rec;
-	t_light		*light;
-	t_bool		light_blocked;
-
-	hit.ray = ray;
-	hit.t_min = 0.001;
-	hit.t_max = FLT_MAX;
-	new_vec(color, 0, 0, 0);
-	if (hit_any(conf->objs, &hit, &rec) == FALSE)
-		return (color);
-	light = conf->lights;
-	v_prod(color, &rec.mat_ptr->attenuation, &conf->amb_l->rgb);
-	v_mul(color, color, conf->amb_l->amb_rat);
-	return (color);
-}
-*/
-/* ********************************************************* */
-
 t_vec	*get_light_at(t_vec *color, t_conf *conf, t_light *light,
 														t_hit_rec *rec)
 {
@@ -125,12 +46,12 @@ t_vec	*get_light_at(t_vec *color, t_conf *conf, t_light *light,
 		v_unit(&hit.ray.dir, v_sub(&hit.ray.dir, &light->pos, &rec->p));
 		dot = v_dot(&rec->normal, &hit.ray.dir);
 		if (!hit_any(conf->objs, &hit, &l_rec) || l_rec.mat_ptr == rec->mat_ptr)
-				if (dot > 0)
-				{
-					v_mul(&tmp_v, &light->rgb, light->ratio * dot);
-					v_add(color, color, v_prod(&tmp_v, &tmp_v,
-											&rec->mat_ptr->attenuation));
-				}
+			if (dot > 0)
+			{
+				v_mul(&tmp_v, &light->rgb, light->ratio * dot);
+				v_add(color, color, v_prod(&tmp_v, &tmp_v,
+										&rec->mat_ptr->attenuation));
+			}
 		light = light->next;
 	}
 	color->x = color->x > 1 ? 1 : color->x;

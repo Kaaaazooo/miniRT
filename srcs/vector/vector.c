@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:39:13 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/17 10:16:43 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/21 14:04:23 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec	*new_vec(t_vec *vec, float x, float y, float z)
 	return (vec);
 }
 
-int	v_rgb(t_vec *color)
+int		v_rgb(t_vec *color)
 {
 	int	rgb;
 
@@ -46,5 +46,5 @@ int	v_rgb(t_vec *color)
 	rgb |= (int)(255.99 * color->x) << 16;
 	rgb |= (int)(255.99 * color->y) << 8;
 	rgb |= (int)(255.99 * color->z);
-	return(rgb);
+	return (rgb);
 }
