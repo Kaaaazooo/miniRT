@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:41:49 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 14:42:22 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/22 12:57:33 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 t_bool		hit_cylinder(t_cy *cy, t_hit *hit, t_hit_rec *rec)
 {
+	t_quad_eq	eq;
+
+	(void)eq;
 	return (TRUE);
 }

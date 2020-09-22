@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:49:02 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 16:01:11 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/22 12:55:59 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		parse_sp(t_obj **objs, char *str)
 				!(sphere->mat_ptr = malloc(sizeof(t_mat))))
 		ft_handle_error("malloc failed\n");
 	sphere->pos = skip_atov(&str);
-	sphere->pos.x *= -1;
 	sphere->radius = skip_atof(&str) / 2;
 	parse_mat(&str, sphere->mat_ptr);
 	new->obj = sphere;
@@ -53,7 +52,6 @@ int		parse_pl(t_obj **objs, char *str)
 				!(plane->mat_ptr = malloc(sizeof(t_mat))))
 		ft_handle_error("malloc failed\n");
 	plane->pos = skip_atov(&str);
-	plane->pos.x *= -1;
 	plane->ori = skip_atov(&str);
 	parse_mat(&str, plane->mat_ptr);
 	new->obj = plane;
@@ -80,7 +78,6 @@ int		parse_sq(t_obj **objs, char *str)
 				!(square->mat_ptr = malloc(sizeof(t_mat))))
 		ft_handle_error("malloc failed\n");
 	square->pos = skip_atov(&str);
-	square->pos.x *= -1;
 	square->ori = skip_atov(&str);
 	square->size = skip_atof(&str);
 	parse_mat(&str, square->mat_ptr);
@@ -108,7 +105,6 @@ int		parse_cy(t_obj **objs, char *str)
 	if (!(sphere = malloc(sizeof(sphere))))
 		ft_handle_error("malloc failed\n");
 	sphere->pos = skip_atov(&str);
-	sphere->pos.x *= -1;
 	sphere->radius = skip_atof(&str);
 	if (!*objs)
 		*objs = tmp;
@@ -119,23 +115,23 @@ int		parse_tr(t_obj **objs, char *str)
 {
 	t_obj	*tmp;
 	t_obj	*new;
-	t_tr	*triangle;
+	t_tr	*tr;
+	t_vec	tmp_v;
 
 	tmp = *objs;
 	if (!(new = malloc(sizeof(t_obj))))
 		ft_handle_error("malloc failed\n");
 	new->type = TR;
-	if (!(triangle = malloc(sizeof(t_tr))) ||
-				!(triangle->mat_ptr = malloc(sizeof(t_mat))))
+	if (!(tr = malloc(sizeof(t_tr))) ||
+				!(tr->mat_ptr = malloc(sizeof(t_mat))))
 		ft_handle_error("malloc failed\n");
-	triangle->point0 = skip_atov(&str);
-	triangle->point0.x *= -1;
-	triangle->point1 = skip_atov(&str);
-	triangle->point1.x *= -1;
-	triangle->point2 = skip_atov(&str);
-	triangle->point2.x *= -1;
-	parse_mat(&str, triangle->mat_ptr);
-	new->obj = triangle;
+	tr->point0 = skip_atov(&str);
+	tr->point1 = skip_atov(&str);
+	tr->point2 = skip_atov(&str);
+	v_cross(&tr->ori, v_sub(&tr->ori, &tr->point1,
+	&tr->point0), v_sub(&tmp_v, &tr->point2, &tr->point0));
+	parse_mat(&str, tr->mat_ptr);
+	new->obj = tr;
 	new->next = 0;
 	if (!*objs)
 		return ((*objs = new) > 0);

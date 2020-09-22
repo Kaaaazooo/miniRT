@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:51:07 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 10:40:56 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/22 10:00:36 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int		parse_l(t_light **lights, char *str)
 	if (!(new = malloc(sizeof(t_light))))
 		ft_handle_error("malloc failed\n");
 	new->pos = skip_atov(&str);
-	new->pos.x *= -1;
 	new->ratio = skip_atof(&str);
 	new->rgb = skip_atov(&str);
 	v_div(&new->rgb, &new->rgb, 255);

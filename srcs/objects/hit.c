@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 11:44:07 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 09:35:53 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/22 09:13:09 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool		check_hit(t_obj *objs, t_hit *hit, t_hit_rec *rec)
 	if (objs->type & CY)
 		return (0);
 	if (objs->type & TR)
-		return (0);
+		return (hit_triangle(objs->obj, hit, rec));
 	else
 		return (0);
 }

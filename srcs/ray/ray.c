@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 12:12:27 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 13:57:32 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/22 10:00:05 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_ray	*get_ray(t_ray *ray, t_cam *cam, float u, float v)
 	v_add(&ray->dir, &tmp1, &tmp2);
 	v_add(&ray->dir, &ray->dir, &cam->llc);
 	v_sub(&ray->dir, &ray->dir, &cam->pos);
+	ray->dir.x *= -1;
 	return (ray);
 }
 

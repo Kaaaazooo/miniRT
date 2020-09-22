@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:03:34 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 10:39:49 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/22 09:03:21 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,30 @@ int		print_objs(t_conf *config)
 		}
 		else if (obj->type == SQ)
 		{
-			printf("SQ : [%f, %f, %f] ; [%f, %f, %f] ; [%f] ; ", ((t_sq *)(obj->obj))->pos.x,
+			printf("SQ : [%f, %f, %f] ; [%f, %f, %f] ; [%f] ; ",
+			((t_sq *)(obj->obj))->pos.x,
 			((t_sq *)(obj->obj))->pos.y, ((t_sq *)(obj->obj))->pos.z,
-			((t_sq *)(obj->obj))->ori.x, ((t_sq *)(obj->obj))->ori.y, ((t_sq *)(obj->obj))->ori.z,
+			((t_sq *)(obj->obj))->ori.x, ((t_sq *)(obj->obj))->ori.y,
+			((t_sq *)(obj->obj))->ori.z,
 			((t_sq *)(obj->obj))->size);
-			printf("[%f, %f, %f]\n", ((t_sq *)(obj->obj))->mat_ptr->attenuation.x,
-				((t_sq *)(obj->obj))->mat_ptr->attenuation.y, ((t_sq *)(obj->obj))->mat_ptr->attenuation.z);
+			printf("[%f, %f, %f]\n",
+			((t_sq *)(obj->obj))->mat_ptr->attenuation.x,
+			((t_sq *)(obj->obj))->mat_ptr->attenuation.y,
+			((t_sq *)(obj->obj))->mat_ptr->attenuation.z);
+		}
+		else if (obj->type == TR)
+		{
+			printf("TR : [%f, %f, %f] ; [%f, %f, %f] ; [%f, %f, %f] ; ",
+			((t_tr *)(obj->obj))->point0.x, ((t_tr *)(obj->obj))->point0.y,
+			((t_tr *)(obj->obj))->point0.z,
+			((t_tr *)(obj->obj))->point1.x, ((t_tr *)(obj->obj))->point1.y,
+			((t_tr *)(obj->obj))->point1.z,
+			((t_tr *)(obj->obj))->point2.x, ((t_tr *)(obj->obj))->point2.y,
+			((t_tr *)(obj->obj))->point2.z);
+			printf("[%f, %f, %f]\n",
+			((t_tr *)(obj->obj))->mat_ptr->attenuation.x,
+			((t_tr *)(obj->obj))->mat_ptr->attenuation.y,
+			((t_tr *)(obj->obj))->mat_ptr->attenuation.z);
 		}
 		obj = obj->next;
 	}
