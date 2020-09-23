@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:44:15 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/22 12:56:30 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/23 08:46:48 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_bool		hit_triangle(t_tr *tr, t_hit *hit, t_hit_rec *rec)
 		return (FALSE);
 	pt_at_param(&rec->p, &hit->ray, rec->t);
 	rec->mat_ptr = tr->mat_ptr;
-	if (v_dot(&hit->ray.dir, &tr->ori) >= 0)
-		v_unit(&rec->normal, v_mul(&rec->normal, &tr->ori, -1));
+	v_cross(&p_vec, &side0, &side1);
+	v_mul(&rec->normal, &p_vec, v_dot(&hit->ray.dir, &p_vec) >= 0 ? -1 : 1);
+	v_unit(&rec->normal, &rec->normal);
 	return (TRUE);
 }

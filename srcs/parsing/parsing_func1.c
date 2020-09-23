@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:49:02 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/22 12:55:59 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/23 08:48:14 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int		parse_tr(t_obj **objs, char *str)
 	t_obj	*tmp;
 	t_obj	*new;
 	t_tr	*tr;
-	t_vec	tmp_v;
 
 	tmp = *objs;
 	if (!(new = malloc(sizeof(t_obj))))
@@ -128,8 +127,6 @@ int		parse_tr(t_obj **objs, char *str)
 	tr->point0 = skip_atov(&str);
 	tr->point1 = skip_atov(&str);
 	tr->point2 = skip_atov(&str);
-	v_cross(&tr->ori, v_sub(&tr->ori, &tr->point1,
-	&tr->point0), v_sub(&tmp_v, &tr->point2, &tr->point0));
 	parse_mat(&str, tr->mat_ptr);
 	new->obj = tr;
 	new->next = 0;
