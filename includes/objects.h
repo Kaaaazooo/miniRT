@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 09:07:06 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/22 09:13:30 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/24 10:04:49 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct	s_cylinder
 	t_vec			ori;
 	float			diam;
 	float			height;
-	t_vec			rgb;
+	struct s_mat	*mat_ptr;
 }				t_cy;
 
 typedef struct	s_triangle
@@ -87,10 +87,15 @@ typedef struct	s_object_list
 }				t_obj;
 
 t_bool			hit_any(t_obj *objs, t_hit *hit, t_hit_rec *rec);
+
 t_bool			hit_sphere(t_sp *sp, t_hit *hit, t_hit_rec *rec);
 t_bool			hit_plane(t_pl *pl, t_hit *hit, t_hit_rec *rec);
 t_bool			hit_square(t_sq *sq, t_hit *hit, t_hit_rec *rec);
 t_bool			hit_triangle(t_tr *tr, t_hit *hit, t_hit_rec *rec);
+t_bool			hit_cylinder(t_cy *cy, t_hit *hit, t_hit_rec *rec);
+
+float			inter_plane(t_hit *hit, t_vec *position, t_vec *orientation);
+
 t_obj			*new_obj(char type, void *obj, t_obj *next, t_func f);
 t_sp			*new_sphere(t_sp *dest, t_vec *v1, float radius);
 t_vec			*rand_unit_sp(t_vec *dest, t_xor *seed);

@@ -6,7 +6,7 @@
 #    By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/10 19:12:22 by sabrugie          #+#    #+#              #
-#    Updated: 2020/09/22 09:09:38 by sabrugie         ###   ########.fr        #
+#    Updated: 2020/09/24 08:55:28 by sabrugie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ CAM = $(addprefix camera/, camera.c)
 DEBUG = $(addprefix debug/, debug.c)
 ERROR = $(addprefix check_error/, check_error.c)
 MATERIAL = $(addprefix material/, material.c scatter.c)
-OBJECTS = $(addprefix objects/, hit.c objects.c plane.c sphere.c square.c triangle.c)
+OBJECTS = $(addprefix objects/, hit.c objects.c plane.c sphere.c square.c \
+		  triangle.c cylinder.c)
 PARSE = $(addprefix parsing/, parser.c parsing_func1.c parsing_func2.c)
 RAY = $(addprefix ray/, ray.c)
 UTILS = $(addprefix utils/, skip_functions.c utils.c)

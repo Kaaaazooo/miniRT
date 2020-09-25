@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:26:54 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/14 10:10:37 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/24 08:33:45 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ typedef struct	s_phong
 	t_vec				specular;
 }				t_phong;
 
-t_vec		*reflect(t_vec *dest, t_vec *v1, t_vec *v2);
-t_bool		scatter_metal(t_ray *ray_in, struct s_hit_rec *rec,
+t_vec			*reflect(t_vec *dest, t_vec *v1, t_vec *v2);
+t_bool			scatter_metal(t_ray *ray_in, struct s_hit_rec *rec,
 												struct s_xor *seed);
-t_bool		scatter_lambert(struct s_hit_rec *rec, struct s_xor *seed);
-t_bool		scatter(struct s_hit_rec *rec, struct s_xor *seed, t_ray *ray_in);
+t_bool			scatter_lambert(struct s_hit_rec *rec, struct s_xor *seed);
+t_bool			scatter(struct s_hit_rec *rec, struct s_xor *seed,
+														t_ray *ray_in);
 
 #endif

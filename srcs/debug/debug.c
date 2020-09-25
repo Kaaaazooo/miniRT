@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:03:34 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/22 09:03:21 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/24 09:37:46 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int		print_objs(t_conf *config)
 	cam = config->cam;
 	light = config->lights;
 	obj = config->objs;
-
 	printf("\nRESOLUTION :\n");
 	printf("[%d, %d]\n", config->res->x, config->res->y);
 	printf("\nAMBIENT LIGHT :\n");
@@ -42,7 +41,8 @@ int		print_objs(t_conf *config)
 	printf("\nLIGHTS :\n");
 	while (light)
 	{
-		printf("[%f, %f, %f] ; [%f] ; [%f, %f, %f]\n", light->pos.x, light->pos.y,
+		printf("[%f, %f, %f] ; [%f] ; [%f, %f, %f]\n",
+			light->pos.x, light->pos.y,
 			light->pos.z, light->ratio,
 			light->rgb.x, light->rgb.y, light->rgb.z);
 		light = light->next;
@@ -55,16 +55,21 @@ int		print_objs(t_conf *config)
 			printf("SP : [%f, %f, %f] ; [%f] ; ", ((t_sp *)(obj->obj))->pos.x,
 			((t_sp *)(obj->obj))->pos.y, ((t_sp *)(obj->obj))->pos.z,
 			((t_sp *)(obj->obj))->radius);
-			printf("[%f, %f, %f]\n", ((t_sp *)(obj->obj))->mat_ptr->attenuation.x,
-				((t_sp *)(obj->obj))->mat_ptr->attenuation.y, ((t_sp *)(obj->obj))->mat_ptr->attenuation.z);
+			printf("[%f, %f, %f]\n",
+				((t_sp *)(obj->obj))->mat_ptr->attenuation.x,
+				((t_sp *)(obj->obj))->mat_ptr->attenuation.y,
+				((t_sp *)(obj->obj))->mat_ptr->attenuation.z);
 		}
 		else if (obj->type == PL)
 		{
-			printf("PL : [%f, %f, %f] ; [%f, %f, %f] ; ", ((t_pl *)(obj->obj))->pos.x,
-			((t_pl *)(obj->obj))->pos.y, ((t_pl *)(obj->obj))->pos.z,
-			((t_pl *)(obj->obj))->ori.x, ((t_pl *)(obj->obj))->ori.y, ((t_pl *)(obj->obj))->ori.z);
-			printf("[%f, %f, %f]\n", ((t_pl *)(obj->obj))->mat_ptr->attenuation.x,
-				((t_pl *)(obj->obj))->mat_ptr->attenuation.y, ((t_pl *)(obj->obj))->mat_ptr->attenuation.z);
+			printf("PL : [%f, %f, %f] ; [%f, %f, %f] ; ",
+			((t_pl *)(obj->obj))->pos.x, ((t_pl *)(obj->obj))->pos.y,
+			((t_pl *)(obj->obj))->pos.z, ((t_pl *)(obj->obj))->ori.x,
+			((t_pl *)(obj->obj))->ori.y, ((t_pl *)(obj->obj))->ori.z);
+			printf("[%f, %f, %f]\n",
+			((t_pl *)(obj->obj))->mat_ptr->attenuation.x,
+			((t_pl *)(obj->obj))->mat_ptr->attenuation.y,
+			((t_pl *)(obj->obj))->mat_ptr->attenuation.z);
 		}
 		else if (obj->type == SQ)
 		{
@@ -92,6 +97,19 @@ int		print_objs(t_conf *config)
 			((t_tr *)(obj->obj))->mat_ptr->attenuation.x,
 			((t_tr *)(obj->obj))->mat_ptr->attenuation.y,
 			((t_tr *)(obj->obj))->mat_ptr->attenuation.z);
+		}
+		else if (obj->type == CY)
+		{
+			printf("CY : [%f, %f, %f] ; [%f, %f, %f] ; [%f] ; [%f] ; ",
+			((t_cy *)(obj->obj))->pos.x, ((t_cy *)(obj->obj))->pos.y,
+			((t_cy *)(obj->obj))->pos.z,
+			((t_cy *)(obj->obj))->ori.x, ((t_cy *)(obj->obj))->ori.y,
+			((t_cy *)(obj->obj))->ori.z,
+			((t_cy *)(obj->obj))->diam, ((t_cy *)(obj->obj))->height);
+			printf("[%f, %f, %f]\n",
+			((t_cy *)(obj->obj))->mat_ptr->attenuation.x,
+			((t_cy *)(obj->obj))->mat_ptr->attenuation.y,
+			((t_cy *)(obj->obj))->mat_ptr->attenuation.z);
 		}
 		obj = obj->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 11:17:59 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 13:57:09 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/24 09:34:45 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		parse(t_conf *config, char *str)
 		return (parse_r(&config->res, str + 1));
 	else if (str[0] == 'A')
 		return (parse_a(&config->amb_l, str + 1));
+	else if (str[0] == 'c' && str[1] == 'y')
+		return (parse_cy(&config->objs, str + 2));
 	else if (str[0] == 'c')
 		return (parse_c(&config->cam, str + 1));
 	else if (str[0] == 'l')
@@ -42,8 +44,6 @@ int		parse(t_conf *config, char *str)
 		return (parse_pl(&config->objs, str + 2));
 	else if (str[0] == 's' && str[1] == 'q')
 		return (parse_sq(&config->objs, str + 2));
-	else if (str[0] == 'c' && str[1] == 'y')
-		return (parse_cy(&config->objs, str + 2));
 	else if (str[0] == 't' && str[1] == 'r')
 		return (parse_tr(&config->objs, str + 2));
 	return (ft_handle_error("Wrong input\n"));

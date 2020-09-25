@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:49:02 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/23 08:48:14 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/24 09:35:01 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,20 +94,28 @@ int		parse_sq(t_obj **objs, char *str)
 int		parse_cy(t_obj **objs, char *str)
 {
 	t_obj	*tmp;
-	t_sp	*sphere;
+	t_obj	*new;
+	t_cy	*cy;
 
 	tmp = *objs;
-	while (tmp)
-		tmp = tmp->next;
-	if (!(tmp = malloc(sizeof(tmp))))
+	if (!(new = malloc(sizeof(t_obj))))
 		ft_handle_error("malloc failed\n");
-	tmp->type = SP;
-	if (!(sphere = malloc(sizeof(sphere))))
+	new->type = CY;
+	if (!(cy = malloc(sizeof(t_cy))) ||
+				!(cy->mat_ptr = malloc(sizeof(t_mat))))
 		ft_handle_error("malloc failed\n");
-	sphere->pos = skip_atov(&str);
-	sphere->radius = skip_atof(&str);
+	cy->pos = skip_atov(&str);
+	cy->ori = skip_atov(&str);
+	cy->diam = skip_atof(&str);
+	cy->height = skip_atof(&str);
+	parse_mat(&str, cy->mat_ptr);
+	new->obj = cy;
+	new->next = 0;
 	if (!*objs)
-		*objs = tmp;
+		return ((*objs = new) > 0);
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
 	return (1);
 }
 

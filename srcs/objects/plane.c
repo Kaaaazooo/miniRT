@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 13:29:42 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/17 11:26:44 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/24 08:48:48 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,22 @@ t_bool		hit_plane(t_pl *pl, t_hit *hit, t_hit_rec *rec)
 		v_mul(&rec->normal, &pl->ori, -1);
 	v_div(&rec->normal, &rec->normal, v_len(&rec->normal));
 	return (TRUE);
+}
+
+float		inter_plane(t_hit *hit, t_vec *position, t_vec *orientation)
+{
+	float	a;
+	float	b;
+	float	t;
+	t_vec	tmp_vec;
+
+	v_sub(&tmp_vec, &hit->ray.pos, position);
+	a = v_dot(&tmp_vec, orientation);
+	b = v_dot(&hit->ray.dir, orientation);
+	if (b == 0 || (a < 0 && b < 0) || (a > 0 && b > 0))
+		return (0);
+	t = -a / b;
+	if (t <= hit->t_min || t >= hit->t_max)
+		return (0);
+	return (t);
 }

@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 13:15:40 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 09:42:13 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/24 08:33:59 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,5 @@ typedef struct	s_configuration
 	t_obj			*objs;
 	t_xor			seed;
 }				t_conf;
-
 
 #endif
