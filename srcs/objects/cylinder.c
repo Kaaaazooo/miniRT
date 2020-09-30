@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:41:49 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/30 15:37:08 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:21:01 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_bool	cy_check_caps(t_cy *cy, t_hit *hit, t_hit_rec *rec)
 	float		t2;
 	t_vec		tmp_v;
 
-	hit_c.t_min = 0.001;
+	hit_c.t_min = 0.00001;
 	hit_c.t_max = cy->height / 2;
 	hit_c.ray.pos = cy->pos;
 	v_unit(&hit_c.ray.dir, &cy->ori);

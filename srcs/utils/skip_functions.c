@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:06:09 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/02/23 09:54:18 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:17:16 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,16 @@ t_vec	skip_atov(char **str)
 	t_vec	vec;
 
 	vec.x = skip_atof(str);
-	if (**str == ',')
-		(*str)++;
+	if (**str != ',')
+		ft_handle_error("Wrong input\n");
+	++(*str);
 	vec.y = skip_atof(str);
-	if (**str == ',')
-		(*str)++;
+	if (**str != ',')
+		ft_handle_error("Wrong input\n");
+	++(*str);
 	vec.z = skip_atof(str);
-	if (**str == ',')
-		(*str)++;
+	if (**str && **str != ' ' && (**str < 9 || **str > 13))
+		ft_handle_error("Wrong input\n");
 	return (vec);
 }
 
@@ -47,6 +49,8 @@ int		skip_atoi(char **str)
 		sign *= -1;
 		(*str) += 1;
 	}
+	if (!ft_isdigit(**str))
+		ft_handle_error("Wrong input\n");
 	while (ft_isdigit(**str))
 		nb = nb * 10 + *((*str)++) - '0';
 	return (nb * sign);
@@ -66,6 +70,8 @@ float	skip_atof(char **str)
 		sign *= -1;
 		(*str) += 1;
 	}
+	if (!ft_isdigit(**str))
+		ft_handle_error("Wrong input\n");
 	while (ft_isdigit(**str))
 		nb = nb * 10 + (float)(*((*str)++) - '0');
 	if (**str == '.')

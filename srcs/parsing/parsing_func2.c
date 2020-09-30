@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:51:07 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/22 10:00:36 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:17:03 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int		parse_c(t_cam **cam, char *str)
 	new->vec = skip_atov(&str);
 	v_mul(&new->vec, &new->vec, -1);
 	new_vec(&new->vup, 0, 1, 0);
-	printf("new->vup = [%f, %f, %f]\n", new->vup.x, new->vup.y, new->vup.z);
 	new->fov = skip_atof(&str);
 	new->next = 0;
 	if (!*cam)
@@ -100,10 +99,6 @@ int		parse_mat(char **str, t_mat *mat_ptr)
 	else
 		ft_handle_error("Wrong input\n");
 	(*str) += **str ? 2 : 0;
-	skip_spaces(str);
-	mat_ptr->fuzz = str ? skip_atof(str) : 1;
-	mat_ptr->fuzz = mat_ptr->fuzz > 1 ? 1 : mat_ptr->fuzz;
-	mat_ptr->fuzz = mat_ptr->fuzz < 0 ? 0 : mat_ptr->fuzz;
 	skip_spaces(str);
 	if (**str)
 		ft_handle_error("Wrong input\n");
