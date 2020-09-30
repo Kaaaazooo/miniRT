@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:51:07 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/30 18:17:03 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:47:05 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int		parse_r(t_coord **res, char *str)
 		ft_handle_error("malloc failed\n");
 	(*res)->x = skip_atoi(&str);
 	(*res)->y = skip_atoi(&str);
+	if ((*res)->x <= 0 || (*res)->y <= 0)
+		ft_handle_error("Wrong resolution\n");
 	return (1);
 }
 
