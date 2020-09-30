@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conv_functions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/30 19:11:47 by sabrugie          #+#    #+#             */
+/*   Updated: 2020/09/30 19:12:03 by sabrugie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		c_conv(va_list ap, t_modif *mod)
@@ -20,7 +32,7 @@ int		c_conv(va_list ap, t_modif *mod)
 
 int		s_conv(va_list ap, t_modif *mod)
 {
-	char					*arg;
+	char				*arg;
 	int					len;
 
 	arg = va_arg(ap, char *);

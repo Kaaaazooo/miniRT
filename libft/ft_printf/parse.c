@@ -6,13 +6,13 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:06:46 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/01/31 17:25:13 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/30 19:15:05 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void			get_field(char **s, va_list ap, t_modif *mod)
+void		get_field(char **s, va_list ap, t_modif *mod)
 {
 	mod->field_width = 0;
 	if (ft_isdigit(**s))
@@ -30,7 +30,7 @@ void			get_field(char **s, va_list ap, t_modif *mod)
 	}
 }
 
-void			get_precision(char **s, va_list ap, t_modif *mod)
+void		get_precision(char **s, va_list ap, t_modif *mod)
 {
 	mod->precision = 0;
 	if (**s == '.')

@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:49:02 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/24 09:35:01 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/30 19:07:32 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		parse_pl(t_obj **objs, char *str)
 		ft_handle_error("malloc failed\n");
 	plane->pos = skip_atov(&str);
 	plane->ori = skip_atov(&str);
+	if (!plane->ori.x && !plane->ori.y && !plane->ori.z)
+		ft_handle_error("Wrong input\n");
 	parse_mat(&str, plane->mat_ptr);
 	new->obj = plane;
 	new->next = 0;
@@ -79,6 +81,8 @@ int		parse_sq(t_obj **objs, char *str)
 		ft_handle_error("malloc failed\n");
 	square->pos = skip_atov(&str);
 	square->ori = skip_atov(&str);
+	if (!square->ori.x && !square->ori.y && !square->ori.z)
+		ft_handle_error("Wrong input\n");
 	square->size = skip_atof(&str);
 	parse_mat(&str, square->mat_ptr);
 	new->obj = square;
@@ -116,7 +120,8 @@ int		parse_cy(t_obj **objs, char *str)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
-	return (1);
+	return (!cy->ori.x && !cy->ori.y && !cy->ori.z ?
+				ft_handle_error("Wrong input\n") : 1);
 }
 
 int		parse_tr(t_obj **objs, char *str)
