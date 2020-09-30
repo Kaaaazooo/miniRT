@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:41:49 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/30 15:06:18 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/30 15:37:08 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ float	get_t(float t1, float t2)
 {
 	float		min;
 
-	min = 0.000001;
+	min = 0.001;
 	if (t1 <= min && t2 <= min)
 		return (0);
 	if (t1 <= min)
@@ -25,24 +25,26 @@ float	get_t(float t1, float t2)
 		return (t1);
 	return (t1 < t2 ? t1 : t2);
 }
-/*
-t_vec	*cy_get_normal(t_cy *cy, t_hit_rec *rec)
-{
-	float		t;
-	t_hit		hit_c;
 
-	hit_c.t_min = 0.000001;
-	hit_c.t_max = FLT_MAX;
-	hit_c.ray.pos = rec->p;
-	v_unit(&hit_c.ray.pos, &cy->ori);
-	if ((t = inter_plane(&hit_c, &cy->pos, &cy->ori)) != FLT_MAX)
-		return (v_unit(&rec->normal, v_sub(&rec->normal, &rec->p, v_add(
-			&rec->normal, &cy->pos, v_mul(&rec->normal, &cy->ori, t * -1)))));
-	v_mul(&hit_c.ray.dir, &hit_c.ray.dir, -1);
-	t = inter_plane(&hit_c, &cy->pos, &cy->ori);
-	return (v_unit(&rec->normal, v_sub(&rec->normal, &rec->p, v_add(
-		&rec->normal, &cy->pos, v_mul(&rec->normal, &cy->ori, t)))));
-}*/
+/*
+**t_vec	*cy_get_normal(t_cy *cy, t_hit_rec *rec)
+**{
+**	float		t;
+**	t_hit		hit_c;
+**
+**	hit_c.t_min = 0.000001;
+**	hit_c.t_max = FLT_MAX;
+**	hit_c.ray.pos = rec->p;
+**	v_unit(&hit_c.ray.pos, &cy->ori);
+**	if ((t = inter_plane(&hit_c, &cy->pos, &cy->ori)) != FLT_MAX)
+**		return (v_unit(&rec->normal, v_sub(&rec->normal, &rec->p, v_add(
+**			&rec->normal, &cy->pos, v_mul(&rec->normal, &cy->ori, t * -1)))));
+**	v_mul(&hit_c.ray.dir, &hit_c.ray.dir, -1);
+**	t = inter_plane(&hit_c, &cy->pos, &cy->ori);
+**	return (v_unit(&rec->normal, v_sub(&rec->normal, &rec->p, v_add(
+**		&rec->normal, &cy->pos, v_mul(&rec->normal, &cy->ori, t)))));
+**}
+*/
 
 t_vec	*cy_get_normal(t_cy *cy, t_hit *hit, t_hit_rec *rec)
 {
@@ -80,16 +82,14 @@ t_bool	cy_check_caps(t_cy *cy, t_hit *hit, t_hit_rec *rec)
 	float		t2;
 	t_vec		tmp_v;
 
-	hit_c.t_min = 0.000001;
+	hit_c.t_min = 0.001;
 	hit_c.t_max = cy->height / 2;
 	hit_c.ray.pos = cy->pos;
 	v_unit(&hit_c.ray.dir, &cy->ori);
 	t1 = inter_plane(&hit_c, &rec->p, &cy->ori);
 	hit_c.t_max = cy->height / 2;
 	v_mul(&hit_c.ray.dir, &hit_c.ray.dir, -1);
-	t2 = inter_plane(&hit_c, &rec->p, &cy->ori);
-	hit_c.t_max = FLT_MAX;
-	if (!t1 && !t2)
+	if (!t1 && !(t2 = inter_plane(&hit_c, &rec->p, &cy->ori)))
 	{
 		t1 = inter_disk(cy, hit, v_add(&tmp_v, &cy->pos,
 			v_mul(&tmp_v, v_unit(&tmp_v, &cy->ori), cy->height / 2)), &cy->ori);
@@ -123,9 +123,7 @@ t_bool	hit_cylinder(t_cy *cy, t_hit *hit, t_hit_rec *rec)
 	eq.delta = sqrt(eq.delta);
 	eq.a *= 2;
 	if ((t = get_t((-eq.b + eq.delta) / (eq.a),
-				(-eq.b - eq.delta) / (eq.a))) <= 0)
-		return (FALSE);
-	if (t <= hit->t_min || t >= hit->t_max)
+	(-eq.b - eq.delta) / (eq.a))) <= 0 || t <= hit->t_min || t >= hit->t_max)
 		return (FALSE);
 	rec->t = t;
 	pt_at_param(&rec->p, &hit->ray, rec->t);
@@ -133,11 +131,11 @@ t_bool	hit_cylinder(t_cy *cy, t_hit *hit, t_hit_rec *rec)
 	cy_get_normal(cy, hit, rec);
 	return (cy_check_caps(cy, hit, rec));
 }
+
 /*
 **	float		tmp;
 **	tmp = (v_dot(&hit->ray.dir, &unit_v) * rec->t) + v_dot(&tmp_v, &unit_v);
 **	v_sub(&rec->normal, &cy->pos, v_mul(&unit_v, &unit_v, tmp));
 **	v_sub(&rec->normal, &rec->p, &rec->normal);
 **	v_unit(&rec->normal, &rec->normal);
-**
 */

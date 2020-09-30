@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/30 13:21:58 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/09/30 15:38:46 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ float	hit_light(t_conf *conf, t_light *light, t_vec *light_v, t_hit_rec *rec)
 	if (rec->mat_ptr->type != PL && rec->mat_ptr->type != SQ &&
 		rec->mat_ptr->type != TR)
 		return (1);
-	hit.t_min = 0.001;
+	hit.t_min = 0.01;
 	hit.t_max = FLT_MAX;
 	hit.ray.pos = light->pos;
 	hit.ray.dir = *light_v;
@@ -38,7 +38,7 @@ t_vec	*get_light_at(t_vec *color, t_conf *conf, t_light *light,
 	t_hit		hit;
 	t_hit_rec	l_rec;
 
-	hit.t_min = 0.001;
+	hit.t_min = 0.01;
 	hit.ray.pos = rec->p;
 	while (light)
 	{
