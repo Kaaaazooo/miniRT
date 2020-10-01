@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 19:47:45 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/17 10:17:28 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:29:53 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,24 @@ void	check_arg(int ac, char *str)
 		ft_handle_error("Too many arguments\n");
 	if (ft_strncmp(str + ft_strlen(str) - 3, ".rt", 3))
 		ft_handle_error("Not a valid file\n");
+}
+
+void	check_color(t_vec *color)
+{
+	if (color->x < 0 || color->x > 255)
+		ft_handle_error("RGB out of range\n");
+	if (color->y < 0 || color->y > 255)
+		ft_handle_error("RGB out of range\n");
+	if (color->z < 0 || color->z > 255)
+		ft_handle_error("RGB out of range\n");
+}
+
+void	check_vector(t_vec *color, float x1, float x2)
+{
+	if (color->x < x1 || color->x > x2)
+		ft_handle_error("Vector out of range\n");
+	if (color->y < x1 || color->y > x2)
+		ft_handle_error("Vector out of range\n");
+	if (color->z < x1 || color->z > x2)
+		ft_handle_error("Vector out of range\n");
 }

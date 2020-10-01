@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:51:07 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/30 18:47:05 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/01 14:28:17 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ int		parse_a(t_amb_l **amb_l, char *str)
 	if (!(*amb_l = malloc(sizeof(t_amb_l))))
 		ft_handle_error("malloc failed\n");
 	(*amb_l)->ratio = skip_atof(&str);
+	if ((*amb_l)->ratio > 1 || (*amb_l)->ratio < 0)
+		ft_handle_error("Ambient light ratio out of range\n");
 	if ((*amb_l)->ratio < 0.005)
 		(*amb_l)->ratio = 0.005;
 	(*amb_l)->rgb = skip_atov(&str);
+	check_color(&(*amb_l)->rgb);
 	v_div(&(*amb_l)->rgb, &(*amb_l)->rgb, 255);
+	(*amb_l)->ratio > 0.005 ? (*amb_l)->ratio += (1 - (*amb_l)->ratio) / 4 : 0;
 	v_mul(&(*amb_l)->rgb, &(*amb_l)->rgb, (*amb_l)->ratio);
 	return (1);
 }
@@ -46,9 +50,11 @@ int		parse_c(t_cam **cam, char *str)
 		ft_handle_error("malloc failed\n");
 	new->pos = skip_atov(&str);
 	new->vec = skip_atov(&str);
+	check_vector(&new->vec, -1, 1);
 	v_mul(&new->vec, &new->vec, -1);
 	new_vec(&new->vup, 0, 1, 0);
-	new->fov = skip_atof(&str);
+	if ((new->fov = skip_atof(&str)) < 0 || new->fov > 180)
+		ft_handle_error("Invalid FOV\n");
 	new->next = 0;
 	if (!*cam)
 	{
@@ -70,8 +76,10 @@ int		parse_l(t_light **lights, char *str)
 	if (!(new = malloc(sizeof(t_light))))
 		ft_handle_error("malloc failed\n");
 	new->pos = skip_atov(&str);
-	new->ratio = skip_atof(&str);
+	if ((new->ratio = skip_atof(&str)) < 0 || new->ratio > 1)
+		ft_handle_error("Light ratio out of range\n");
 	new->rgb = skip_atov(&str);
+	check_color(&new->rgb);
 	v_div(&new->rgb, &new->rgb, 255);
 	new->next = 0;
 	if (!*lights)
@@ -91,7 +99,8 @@ int		parse_mat(char **str, t_mat *mat_ptr)
 	if (**str)
 		mat_ptr->attenuation = skip_atov(str);
 	else
-		new_vec(&mat_ptr->attenuation, 127, 127, 127);
+		ft_handle_error("Missing color\n");
+	check_color(&mat_ptr->attenuation);
 	v_div(&mat_ptr->attenuation, &mat_ptr->attenuation, 255);
 	skip_spaces(str);
 	if ((**str == 0 || (**str == 'L' && *((*str + 1)) == 'A')))
