@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/30 17:18:46 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/02 12:51:24 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,30 @@ void	render(t_conf *conf, t_mlx *mlx, t_coord coord)
 {
 	t_ray	ray;
 	t_vec	color;
+	int		i;
 
 	while (coord.x < conf->res->x)
 	{
-		coord.y = conf->res->y;
-		while (coord.y)
+		coord.y = 0;
+		while (coord.y < conf->res->y)
 		{
 			get_ray(&ray, conf->cam, (float)(coord.x) / (float)(conf->res->x),
 									(float)(coord.y) / (float)(conf->res->y));
 			pixel_color(&color, ray, conf);
-			mlx_pixel_put(mlx->ptr, mlx->win,
-			coord.x, conf->res->y - coord.y--, v_rgb(&color));
+			i = coord.x * (conf->cam->bpp / 8) + 
+				(conf->res->y - coord.y) * conf->cam->line;
+			v_mul(&color, &color, 255);
+			conf->cam->data[i] = color.x;
+			conf->cam->data[i + 1] = color.y;
+			conf->cam->data[i + 2] = color.z;
+			++coord.y;
+			//mlx_pixel_put(mlx->ptr, mlx->win,
+			//coord.x, conf->res->y - coord.y++, v_rgb(&color));
 		}
 		++coord.x;
 	}
+	mlx_put_image_to_window(mlx->ptr, mlx->win,
+		conf->cam->img_ptr, 0, 0);
 }
 
 int		main(int ac, char **av)
@@ -110,12 +120,13 @@ int		main(int ac, char **av)
 	if (!(mlx.ptr = mlx_init()))
 		ft_handle_error("Minilibx failed to initialize\n");
 	coord.x = 0;
-	conf = read_file(av[1]);
+	conf = read_file(av[1], &mlx);
 	conf->seed.a += conf->seed.a ? 0 : (unsigned int)conf;
 	print_objs(conf);
 	if (!(mlx.win = mlx_new_window(mlx.ptr, conf->res->x,
 								conf->res->y, "my_miniRT")))
 		ft_handle_error("Minilibx failed to create a new window\n");
+	conf->cams = conf->cam;
 	render(conf, &mlx, coord);
 	printf("Rendering finished\n");
 	mlx_loop(mlx.ptr);

@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 13:10:05 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/03/01 14:05:59 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/02 11:43:43 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 struct s_mat;
 
-t_conf	*read_file(char *filename);
+t_conf	*read_file(char *filename, t_mlx *mlx);
 int		parse(t_conf *config, char *str);
 int		parse_r(t_coord **res, char *str);
 int		parse_a(t_amb_l **amb_l, char *str);

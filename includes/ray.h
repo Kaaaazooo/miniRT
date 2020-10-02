@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:56:23 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/12 15:23:02 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/02 11:45:00 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "vectors.h"
 # include "mini_rt.h"
 # include "objects.h"
+
+struct s_mlx;
+struct s_coordinates;
 
 typedef struct	s_ray
 {
@@ -47,12 +50,20 @@ typedef struct	s_camera
 	t_vec					vec;
 	t_vec					vup;
 	float					fov;
+	void					*img_ptr;
+	void					*mlx_ptr;
+	void					*win_ptr;
+	int						bpp;
+	int						line;
+	int						endian;
+	char					*data;
 	struct s_camera			*next;
 }				t_cam;
 
 t_ray			*new_ray(t_ray *r, t_vec org, t_vec dir);
 t_ray			*get_ray(t_ray *r, t_cam *cam, float u, float v);
 t_vec			*pt_at_param(t_vec *dest, t_ray *r, float t);
-t_cam			*init_cam(t_cam *cam, float aspect);
+t_cam			*init_cam(t_cam *cam, struct s_mlx *mlx,
+					struct s_coordinates *res, float aspect);
 
 #endif

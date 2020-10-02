@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 11:17:59 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/30 18:45:24 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/02 11:42:04 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		parse(t_conf *config, char *str)
 	return (ft_handle_error("Wrong input\n"));
 }
 
-t_conf	*read_file(char *filename)
+t_conf	*read_file(char *filename, t_mlx *mlx)
 {
 	int		fd;
 	int		ret;
@@ -71,7 +71,8 @@ t_conf	*read_file(char *filename)
 	free(line);
 	if (!config->res)
 		ft_handle_error("No resolution\n");
-	init_cam(config->cam, (float)config->res->x / (float)config->res->y);
+	init_cam(config->cam, mlx, config->res,
+		(float)config->res->x / (float)config->res->y);
 	if (!config->cam)
 		ft_handle_error("No camera\n");
 	return (config);
