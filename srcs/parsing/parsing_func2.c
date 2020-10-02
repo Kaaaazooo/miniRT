@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:51:07 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/01 14:28:17 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/02 14:54:13 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		parse_r(t_coord **res, char *str)
 	(*res)->x = skip_atoi(&str);
 	(*res)->y = skip_atoi(&str);
 	if ((*res)->x <= 0 || (*res)->y <= 0)
+		ft_handle_error("Wrong resolution\n");
+	if ((*res)->x > 2560 || (*res)->y > 1440)
 		ft_handle_error("Wrong resolution\n");
 	return (1);
 }

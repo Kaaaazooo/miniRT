@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/02 12:51:24 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/02 14:49:33 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,25 +86,28 @@ void	render(t_conf *conf, t_mlx *mlx, t_coord coord)
 	t_vec	color;
 	int		i;
 
-	while (coord.x < conf->res->x)
+	printf("endian = %d\n", conf->cam->endian);
+	while (coord.y)
 	{
-		coord.y = 0;
-		while (coord.y < conf->res->y)
+		coord.x = 0;
+		while (coord.x < conf->res->x)
 		{
 			get_ray(&ray, conf->cam, (float)(coord.x) / (float)(conf->res->x),
 									(float)(coord.y) / (float)(conf->res->y));
 			pixel_color(&color, ray, conf);
 			i = coord.x * (conf->cam->bpp / 8) + 
 				(conf->res->y - coord.y) * conf->cam->line;
+	//		printf("(%d, %d) | i = %d\n", coord.x, coord.y, i);
 			v_mul(&color, &color, 255);
-			conf->cam->data[i] = color.x;
+			conf->cam->data[i] = color.z;
 			conf->cam->data[i + 1] = color.y;
-			conf->cam->data[i + 2] = color.z;
-			++coord.y;
+			conf->cam->data[i + 2] = color.x;
+	//		printf("check bus\n");
+			++coord.x;
 			//mlx_pixel_put(mlx->ptr, mlx->win,
 			//coord.x, conf->res->y - coord.y++, v_rgb(&color));
 		}
-		++coord.x;
+		--coord.y;
 	}
 	mlx_put_image_to_window(mlx->ptr, mlx->win,
 		conf->cam->img_ptr, 0, 0);
@@ -119,7 +122,6 @@ int		main(int ac, char **av)
 	check_arg(ac, av[1]);
 	if (!(mlx.ptr = mlx_init()))
 		ft_handle_error("Minilibx failed to initialize\n");
-	coord.x = 0;
 	conf = read_file(av[1], &mlx);
 	conf->seed.a += conf->seed.a ? 0 : (unsigned int)conf;
 	print_objs(conf);
@@ -127,6 +129,7 @@ int		main(int ac, char **av)
 								conf->res->y, "my_miniRT")))
 		ft_handle_error("Minilibx failed to create a new window\n");
 	conf->cams = conf->cam;
+	coord.y = conf->res->y;
 	render(conf, &mlx, coord);
 	printf("Rendering finished\n");
 	mlx_loop(mlx.ptr);
