@@ -6,11 +6,19 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:44:15 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/23 08:46:48 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/02 15:29:02 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void		tr_get_attr(t_tr *tr, t_hit *hit, t_hit_rec *rec, t_vec *p_vec)
+{
+	pt_at_param(&rec->p, &hit->ray, rec->t);
+	rec->mat_ptr = tr->mat_ptr;
+	v_mul(&rec->normal, p_vec, v_dot(&hit->ray.dir, p_vec) >= 0 ? -1 : 1);
+	v_unit(&rec->normal, &rec->normal);
+}
 
 t_bool		hit_triangle(t_tr *tr, t_hit *hit, t_hit_rec *rec)
 {
@@ -37,10 +45,6 @@ t_bool		hit_triangle(t_tr *tr, t_hit *hit, t_hit_rec *rec)
 	rec->t = v_dot(&side1, &q_vec) * (1 / v_dot(&side0, &p_vec));
 	if (rec->t <= hit->t_min || rec->t >= hit->t_max)
 		return (FALSE);
-	pt_at_param(&rec->p, &hit->ray, rec->t);
-	rec->mat_ptr = tr->mat_ptr;
-	v_cross(&p_vec, &side0, &side1);
-	v_mul(&rec->normal, &p_vec, v_dot(&hit->ray.dir, &p_vec) >= 0 ? -1 : 1);
-	v_unit(&rec->normal, &rec->normal);
+	tr_get_attr(tr, hit, rec, v_cross(&p_vec, &side0, &side1));
 	return (TRUE);
 }

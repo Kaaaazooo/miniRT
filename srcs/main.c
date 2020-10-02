@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/02 14:49:33 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/02 15:00:30 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	render(t_conf *conf, t_mlx *mlx, t_coord coord)
 	t_vec	color;
 	int		i;
 
-	printf("endian = %d\n", conf->cam->endian);
 	while (coord.y)
 	{
 		coord.x = 0;
@@ -95,17 +94,13 @@ void	render(t_conf *conf, t_mlx *mlx, t_coord coord)
 			get_ray(&ray, conf->cam, (float)(coord.x) / (float)(conf->res->x),
 									(float)(coord.y) / (float)(conf->res->y));
 			pixel_color(&color, ray, conf);
-			i = coord.x * (conf->cam->bpp / 8) + 
+			i = coord.x * (conf->cam->bpp / 8) +
 				(conf->res->y - coord.y) * conf->cam->line;
-	//		printf("(%d, %d) | i = %d\n", coord.x, coord.y, i);
 			v_mul(&color, &color, 255);
 			conf->cam->data[i] = color.z;
 			conf->cam->data[i + 1] = color.y;
 			conf->cam->data[i + 2] = color.x;
-	//		printf("check bus\n");
 			++coord.x;
-			//mlx_pixel_put(mlx->ptr, mlx->win,
-			//coord.x, conf->res->y - coord.y++, v_rgb(&color));
 		}
 		--coord.y;
 	}
