@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 13:15:40 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/02 11:31:24 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/04 11:40:47 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ typedef struct	s_configuration
 	int				i;
 	t_light			*lights;
 	t_obj			*objs;
+	t_mlx			*mlx;
 	t_xor			seed;
 }				t_conf;
+
+void	render(t_conf *conf);
 
 #endif

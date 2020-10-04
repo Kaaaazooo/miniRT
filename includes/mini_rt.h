@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:26:26 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 13:22:33 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/04 11:19:47 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include "ray.h"
 # include "parser.h"
 # include "debug.h"
+# include "events.h"
 # include "errors.h"
 
 typedef struct	s_quadratic_equation

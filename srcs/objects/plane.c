@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 13:29:42 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/24 08:48:48 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/04 13:36:46 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ t_bool		hit_plane(t_pl *pl, t_hit *hit, t_hit_rec *rec)
 	a = v_dot(&tmp_vec, &pl->ori);
 	b = v_dot(&hit->ray.dir, &pl->ori);
 	if (b == 0 || (a < 0 && b < 0) || (a > 0 && b > 0))
+	{
+		printf("ray_pos[%f, %f, %f] - pl->pos[%f, %f, %f] = [%f, %f, %f]\n",
+			hit->ray.pos.x, hit->ray.pos.y, hit->ray.pos.z,
+			pl->pos.x, pl->pos.y, pl->pos.z,
+			tmp_vec.x, tmp_vec.y, tmp_vec.z);
 		return (FALSE);
+	}
 	t = -a / b;
 	if (t <= hit->t_min || t >= hit->t_max)
 		return (FALSE);

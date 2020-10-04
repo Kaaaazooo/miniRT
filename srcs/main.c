@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/02 15:00:30 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/04 13:22:43 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,14 @@ t_vec	*pixel_color(t_vec *color, t_ray ray, t_conf *conf)
 	return (color);
 }
 
-void	render(t_conf *conf, t_mlx *mlx, t_coord coord)
+void	render(t_conf *conf)
 {
 	t_ray	ray;
 	t_vec	color;
 	int		i;
+	t_coord	coord;
 
+	coord.y = conf->res->y;
 	while (coord.y)
 	{
 		coord.x = 0;
@@ -94,24 +96,22 @@ void	render(t_conf *conf, t_mlx *mlx, t_coord coord)
 			get_ray(&ray, conf->cam, (float)(coord.x) / (float)(conf->res->x),
 									(float)(coord.y) / (float)(conf->res->y));
 			pixel_color(&color, ray, conf);
-			i = coord.x * (conf->cam->bpp / 8) +
+			i = coord.x++ * (conf->cam->bpp / 8) +
 				(conf->res->y - coord.y) * conf->cam->line;
 			v_mul(&color, &color, 255);
 			conf->cam->data[i] = color.z;
 			conf->cam->data[i + 1] = color.y;
 			conf->cam->data[i + 2] = color.x;
-			++coord.x;
 		}
 		--coord.y;
 	}
-	mlx_put_image_to_window(mlx->ptr, mlx->win,
+	mlx_put_image_to_window(conf->mlx->ptr, conf->mlx->win,
 		conf->cam->img_ptr, 0, 0);
 }
 
 int		main(int ac, char **av)
 {
 	t_conf	*conf;
-	t_coord	coord;
 	t_mlx	mlx;
 
 	check_arg(ac, av[1]);
@@ -119,15 +119,17 @@ int		main(int ac, char **av)
 		ft_handle_error("Minilibx failed to initialize\n");
 	conf = read_file(av[1], &mlx);
 	conf->seed.a += conf->seed.a ? 0 : (unsigned int)conf;
-	print_objs(conf);
 	if (!(mlx.win = mlx_new_window(mlx.ptr, conf->res->x,
 								conf->res->y, "my_miniRT")))
 		ft_handle_error("Minilibx failed to create a new window\n");
 	conf->cams = conf->cam;
-	coord.y = conf->res->y;
-	render(conf, &mlx, coord);
-	printf("Rendering finished\n");
-	mlx_loop(mlx.ptr);
+	conf->mlx = &mlx;
+	render(conf);
+	handle_events(conf);
 	exit(0);
 	return (0);
 }
+/*
+**	print_objs(conf);
+**	printf("Rendering finished\n");
+*/

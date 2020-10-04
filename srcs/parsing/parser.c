@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 11:17:59 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/02 11:42:04 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/02 18:00:37 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ t_conf	*read_file(char *filename, t_mlx *mlx)
 	if (*line && fd >= 0)
 		parse(config, line);
 	free(line);
-	if (!config->res)
-		ft_handle_error("No resolution\n");
+	if (!config->res || !config->amb_l)
+		ft_handle_error(config->res ? "No ambient light\n" : "No resolution\n");
 	init_cam(config->cam, mlx, config->res,
 		(float)config->res->x / (float)config->res->y);
 	if (!config->cam)

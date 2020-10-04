@@ -6,7 +6,7 @@
 #    By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/10 19:12:22 by sabrugie          #+#    #+#              #
-#    Updated: 2020/09/24 08:55:28 by sabrugie         ###   ########.fr        #
+#    Updated: 2020/10/04 11:18:07 by sabrugie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ LDFLAGS = -L $(LIBFT_P) -lft -L $(MLX_P) -lmlx \
 CAM = $(addprefix camera/, camera.c)
 DEBUG = $(addprefix debug/, debug.c)
 ERROR = $(addprefix check_error/, check_error.c)
+EVENTS = $(addprefix events/, events.c)
 MATERIAL = $(addprefix material/, material.c scatter.c)
 OBJECTS = $(addprefix objects/, hit.c objects.c plane.c sphere.c square.c \
 		  triangle.c cylinder.c)
@@ -35,7 +36,8 @@ UTILS = $(addprefix utils/, skip_functions.c utils.c)
 VEC = $(addprefix vector/, vector.c vector_operations1.c \
 		vector_operations2.c)
 
-SRCS =	$(addprefix srcs/, main.c $(CAM) $(ERROR) $(DEBUG) $(MATERIAL) $(OBJECTS) $(PARSE) $(RAY) $(UTILS) $(VEC))
+SRCS =	$(addprefix srcs/, main.c $(CAM) $(ERROR) $(EVENTS) $(DEBUG) \
+		$(MATERIAL) $(OBJECTS) $(PARSE) $(RAY) $(UTILS) $(VEC))
 		
 #OBJS = $(SRCS:$(SRCS_P)%.c=$(OBJ_P)%.o)
 OBJS = $(SRCS:.c=.o)
