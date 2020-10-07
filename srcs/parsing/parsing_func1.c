@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:49:02 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/04 13:35:53 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/05 11:26:06 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ int		parse_pl(t_obj **objs, char *str)
 	if (!(pl = malloc(sizeof(t_pl))) ||
 			!(pl->mat_ptr = malloc(sizeof(t_mat))))
 		ft_handle_error("malloc failed\n");
-	printf("av : str = [%s]\n", str);
 	pl->pos = skip_atov(&str);
-	printf("[%f, %f, %f]\n", pl->pos.x, pl->pos.y, pl->pos.z);
-	printf("ap : str = [%s]\n", str);
 	pl->ori = skip_atov(&str);
 	check_vector(&pl->ori, -1, 1);
 	if (!pl->ori.x && !pl->ori.y && !pl->ori.z)

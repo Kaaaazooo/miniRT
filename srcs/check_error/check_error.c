@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 19:47:45 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/01 13:29:53 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/05 16:07:24 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ int		ft_handle_error(char *str)
 	return (0);
 }
 
-void	check_arg(int ac, char *str)
+void	check_arg(int ac, char **av)
 {
-	if (ac < 2 || !*str)
+	if (ac < 2 || !av[1])
 		ft_handle_error("No arguments\n");
 	if (ac > 3)
 		ft_handle_error("Too many arguments\n");
-	if (ft_strncmp(str + ft_strlen(str) - 3, ".rt", 3))
+	if (ac == 3 && (!*av[2] || ft_strcmp(av[2], "-save")))
+		ft_handle_error("Invalid argument\n");
+	if (ft_strncmp(av[1] + ft_strlen(av[1]) - 3, ".rt", 3))
 		ft_handle_error("Not a valid file\n");
 }
 

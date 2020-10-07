@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/04 13:22:43 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:09:49 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,10 @@ void	render(t_conf *conf)
 			conf->cam->data[i] = color.z;
 			conf->cam->data[i + 1] = color.y;
 			conf->cam->data[i + 2] = color.x;
+			conf->cam->data[i + 3] = 0;
 		}
 		--coord.y;
 	}
-	mlx_put_image_to_window(conf->mlx->ptr, conf->mlx->win,
-		conf->cam->img_ptr, 0, 0);
 }
 
 int		main(int ac, char **av)
@@ -114,7 +113,7 @@ int		main(int ac, char **av)
 	t_conf	*conf;
 	t_mlx	mlx;
 
-	check_arg(ac, av[1]);
+	check_arg(ac, av);
 	if (!(mlx.ptr = mlx_init()))
 		ft_handle_error("Minilibx failed to initialize\n");
 	conf = read_file(av[1], &mlx);
@@ -125,7 +124,14 @@ int		main(int ac, char **av)
 	conf->cams = conf->cam;
 	conf->mlx = &mlx;
 	render(conf);
-	handle_events(conf);
+	if (ac == 3)
+		save_img(conf);
+	else
+	{
+		mlx_put_image_to_window(conf->mlx->ptr, conf->mlx->win,
+			conf->cam->img_ptr, 0, 0);
+		handle_events(conf);
+	}
 	exit(0);
 	return (0);
 }

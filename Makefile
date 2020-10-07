@@ -6,7 +6,7 @@
 #    By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/10 19:12:22 by sabrugie          #+#    #+#              #
-#    Updated: 2020/10/04 11:18:07 by sabrugie         ###   ########.fr        #
+#    Updated: 2020/10/05 16:49:32 by sabrugie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ OPTION = -I $(HEADERS) -I $(MLX_P) -I $(LIBFT_P)/includes
 LDFLAGS = -L $(LIBFT_P) -lft -L $(MLX_P) -lmlx \
 		  -framework OpenGL -framework AppKit -lm
 
+BMP = $(addprefix bmp/, bmp.c)
 CAM = $(addprefix camera/, camera.c)
 DEBUG = $(addprefix debug/, debug.c)
 ERROR = $(addprefix check_error/, check_error.c)
@@ -36,7 +37,7 @@ UTILS = $(addprefix utils/, skip_functions.c utils.c)
 VEC = $(addprefix vector/, vector.c vector_operations1.c \
 		vector_operations2.c)
 
-SRCS =	$(addprefix srcs/, main.c $(CAM) $(ERROR) $(EVENTS) $(DEBUG) \
+SRCS =	$(addprefix srcs/, main.c $(BMP) $(CAM) $(ERROR) $(EVENTS) $(DEBUG) \
 		$(MATERIAL) $(OBJECTS) $(PARSE) $(RAY) $(UTILS) $(VEC))
 		
 #OBJS = $(SRCS:$(SRCS_P)%.c=$(OBJ_P)%.o)

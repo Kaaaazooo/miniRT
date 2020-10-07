@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.h                                           :+:      :+:    :+:   */
+/*   bmp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/04 11:18:45 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/07 15:28:17 by sabrugie         ###   ########.fr       */
+/*   Created: 2020/10/05 16:44:49 by sabrugie          #+#    #+#             */
+/*   Updated: 2020/10/05 16:48:42 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVENTS_H
-# define EVENTS_H
+#ifndef BMP_H
+# define BMP_H
 
-# include "mini_rt.h"
-
-void	handle_events(t_conf *conf);
+void	save_img(t_conf *conf);
 
 #endif

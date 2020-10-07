@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 11:18:22 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/04 13:04:12 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:24:56 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int		switch_cam(int key, t_conf *conf)
 			conf->cam = conf->cam->next;
 	}
 	render(conf);
-	return (0);
+	return (mlx_put_image_to_window(conf->mlx->ptr,
+				conf->mlx->win, conf->cam->img_ptr, 0, 0));
 }
 
 int		key_events(int key, void *ptr)
