@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:56:23 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/02 11:45:00 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:13:04 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 struct s_mlx;
 struct s_coordinates;
+struct s_configuration;
 
 typedef struct	s_ray
 {
@@ -63,7 +64,7 @@ typedef struct	s_camera
 t_ray			*new_ray(t_ray *r, t_vec org, t_vec dir);
 t_ray			*get_ray(t_ray *r, t_cam *cam, float u, float v);
 t_vec			*pt_at_param(t_vec *dest, t_ray *r, float t);
-t_cam			*init_cam(t_cam *cam, struct s_mlx *mlx,
-					struct s_coordinates *res, float aspect);
+t_cam			*init_cam(struct s_configuration *conf, struct s_mlx *mlx,
+									struct s_coordinates *res, float aspect);
 
 #endif

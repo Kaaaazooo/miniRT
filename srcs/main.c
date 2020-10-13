@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:29:31 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/07 15:09:49 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:59:00 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ float	hit_light(t_conf *conf, t_light *light, t_vec *light_v, t_hit_rec *rec)
 	if (rec->mat_ptr->type != PL && rec->mat_ptr->type != SQ &&
 		rec->mat_ptr->type != TR)
 		return (1);
-	hit.t_min = 0.01;
+	hit.t_min = 0.001;
 	hit.t_max = FLT_MAX;
 	hit.ray.pos = light->pos;
 	hit.ray.dir = *light_v;
@@ -38,7 +38,7 @@ t_vec	*get_light_at(t_vec *color, t_conf *conf, t_light *light,
 	t_hit		hit;
 	t_hit_rec	l_rec;
 
-	hit.t_min = 0.01;
+	hit.t_min = 0.1;
 	hit.ray.pos = rec->p;
 	while (light)
 	{
@@ -115,14 +115,13 @@ int		main(int ac, char **av)
 
 	check_arg(ac, av);
 	if (!(mlx.ptr = mlx_init()))
-		ft_handle_error("Minilibx failed to initialize\n");
+		ft_handle_error("Minilibx failed to initialize\n", NULL);
 	conf = read_file(av[1], &mlx);
 	conf->seed.a += conf->seed.a ? 0 : (unsigned int)conf;
 	if (!(mlx.win = mlx_new_window(mlx.ptr, conf->res->x,
 								conf->res->y, "my_miniRT")))
-		ft_handle_error("Minilibx failed to create a new window\n");
-	conf->cams = conf->cam;
-	conf->mlx = &mlx;
+		ft_handle_error("Minilibx failed to create a new window\n", conf);
+	conf->cam = conf->cams;
 	render(conf);
 	if (ac == 3)
 		save_img(conf);

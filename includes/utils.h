@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 17:42:01 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:28:40 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:20:21 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "mini_rt.h"
 
 typedef char	t_bool;
+struct	s_configuration;
 
 typedef struct	s_xor
 {
@@ -23,9 +24,9 @@ typedef struct	s_xor
 }				t_xor;
 
 void			skip_spaces(char **str);
-t_vec			skip_atov(char **str);
-int				skip_atoi(char **str);
-float			skip_atof(char **str);
+t_vec			skip_atov(char **str, struct s_configuration *conf, char *type);
+int				skip_atoi(char **str, struct s_configuration *conf, char *type);
+float			skip_atof(char **str, struct s_configuration *conf, char *type);
 
 float			my_rand(t_xor *state);
 

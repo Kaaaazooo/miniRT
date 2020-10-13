@@ -6,23 +6,11 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:39:13 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/21 14:04:23 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:53:30 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
-t_vec	*alloc_vec(float x, float y, float z)
-{
-	t_vec	*vec;
-
-	if (!(vec = malloc(sizeof(vec))))
-		ft_handle_error("malloc failed\n");
-	vec->x = x;
-	vec->y = y;
-	vec->z = z;
-	return (vec);
-}
 
 t_vec	*new_vec(t_vec *vec, float x, float y, float z)
 {

@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 09:07:06 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/09/24 10:04:49 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:52:31 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ t_bool			hit_cylinder(t_cy *cy, t_hit *hit, t_hit_rec *rec);
 
 float			inter_plane(t_hit *hit, t_vec *position, t_vec *orientation);
 
-t_obj			*new_obj(char type, void *obj, t_obj *next, t_func f);
 t_sp			*new_sphere(t_sp *dest, t_vec *v1, float radius);
 t_vec			*rand_unit_sp(t_vec *dest, t_xor *seed);
 #endif

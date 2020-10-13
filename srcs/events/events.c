@@ -6,11 +6,16 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 11:18:22 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/07 15:24:56 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/13 20:05:54 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+int		close_window(void *ptr)
+{
+	return (ft_handle_error("Closing miniRT...\n", (t_conf*)(ptr)));
+}
 
 int		switch_cam(int key, t_conf *conf)
 {
@@ -44,7 +49,7 @@ int		switch_cam(int key, t_conf *conf)
 int		key_events(int key, void *ptr)
 {
 	if (key == 53)
-		ft_handle_error("Closing miniRT...\n");
+		ft_handle_error("Closing miniRT...\n", (t_conf*)(ptr));
 	if (key == 123 || key == 124)
 		switch_cam(key, (t_conf*)ptr);
 	return (0);
@@ -52,8 +57,7 @@ int		key_events(int key, void *ptr)
 
 void	handle_events(t_conf *conf)
 {
-	mlx_hook(conf->mlx->win, 17, 0, ft_handle_error,
-						(void *)"Closing miniRT...\n");
+	mlx_hook(conf->mlx->win, 17, 0, close_window, (void*)conf);
 	mlx_key_hook(conf->mlx->win, key_events, (void *)conf);
 	mlx_loop(conf->mlx->ptr);
 }
