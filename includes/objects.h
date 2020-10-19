@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 09:07:06 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/13 19:52:31 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:20:54 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct	s_object_list
 	t_func					f;
 }				t_obj;
 
+t_bool			check_hit(t_obj *objs, t_hit *hit, t_hit_rec *rec);
 t_bool			hit_any(t_obj *objs, t_hit *hit, t_hit_rec *rec);
 
 t_bool			hit_sphere(t_sp *sp, t_hit *hit, t_hit_rec *rec);

@@ -6,7 +6,7 @@
 #    By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/10 19:12:22 by sabrugie          #+#    #+#              #
-#    Updated: 2020/10/13 20:32:12 by sabrugie         ###   ########.fr        #
+#    Updated: 2020/10/19 14:21:57 by sabrugie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,14 @@ OBJECTS = $(addprefix objects/, hit.c plane.c sphere.c square.c \
 		  triangle.c cylinder.c)
 PARSE = $(addprefix parsing/, parser.c parsing_func1.c parsing_func2.c)
 RAY = $(addprefix ray/, ray.c)
+RENDER = $(addprefix render/, render.c)
 UTILS = $(addprefix utils/, skip_functions.c utils.c)
 VEC = $(addprefix vector/, vector.c vector_operations1.c \
 		vector_operations2.c)
 
 SRCS =	$(addprefix srcs/, main.c $(BMP) $(CAM) $(DEBUG) $(ERROR) $(EVENTS) \
-		$(FREE_FNCT) $(MATERIAL) $(OBJECTS) $(PARSE) $(RAY) $(UTILS) $(VEC))
+		$(FREE_FNCT) $(MATERIAL) $(OBJECTS) $(PARSE) $(RAY) $(RENDER) \
+		$(UTILS) $(VEC))
 		
 #OBJS = $(SRCS:$(SRCS_P)%.c=$(OBJ_P)%.o)
 OBJS = $(SRCS:.c=.o)

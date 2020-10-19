@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:49:02 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/13 20:40:26 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/13 21:07:37 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int		parse_sq(t_obj **objs, t_conf *conf, char *str)
 	if (!(new = malloc(sizeof(t_obj))))
 		ft_handle_error("Square : malloc failed\n", conf);
 	new->type = SQ;
-	if (!(sq = malloc(sizeof(t_sq))) || !(sq->mat_ptr = malloc(sizeof(t_mat))))
+	if (!(sq = malloc(sizeof(t_sq))) ||
+		!(sq->mat_ptr = malloc(sizeof(t_mat))))
 		ft_handle_error("Square : malloc failed\n", conf);
 	sq->pos = skip_atov(&str, conf, "Square Position");
 	sq->ori = skip_atov(&str, conf, "Square Orientation");
