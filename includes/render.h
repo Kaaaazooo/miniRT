@@ -6,14 +6,14 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 14:20:43 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/19 14:21:15 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/19 14:33:34 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER_H
 # define RENDER_H
 
-#include "mini_rt.h"
+# include "mini_rt.h"
 
 void	render(t_conf *conf);
 

@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 17:42:01 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/13 19:20:21 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/19 14:34:00 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "mini_rt.h"
 
 typedef char	t_bool;
-struct	s_configuration;
+struct s_configuration;
 
 typedef struct	s_xor
 {
