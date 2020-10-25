@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:51:07 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/13 20:40:32 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/25 18:33:50 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int		parse_r(t_coord **res, t_conf *conf, char *str)
 		ft_handle_error("Resolution : wrong input\n", conf);
 	if ((*res)->x > 2560 || (*res)->y > 1440)
 		ft_handle_error("Resolution : wrong input\n", conf);
+	skip_spaces(&str);
+	if (*str)
+		ft_handle_error("Resolution : invalid input\n", conf);
 	return (1);
 }
 
@@ -43,6 +46,9 @@ int		parse_a(t_amb_l **amb_l, t_conf *conf, char *str)
 	v_div(&(*amb_l)->rgb, &(*amb_l)->rgb, 255);
 	(*amb_l)->ratio > 0.005 ? (*amb_l)->ratio += (1 - (*amb_l)->ratio) / 4 : 0;
 	v_mul(&(*amb_l)->rgb, &(*amb_l)->rgb, (*amb_l)->ratio);
+	skip_spaces(&str);
+	if (*str)
+		ft_handle_error("Ambient Light : invalid input\n", conf);
 	return (1);
 }
 
@@ -61,17 +67,18 @@ int		parse_c(t_cam **cam, t_conf *conf, char *str)
 	check_vector(&new->vec, conf, "Camera Direction");
 	new->vec.y *= -1;
 	new->vec.z *= -1;
-	new_vec(&new->vup, 0, 1, 0);
 	if ((new->fov = skip_atof(&str, conf, "Camera FOV")) < 0 || new->fov > 180)
 		ft_handle_error("Camera : invalid FOV\n", conf);
+	skip_spaces(&str);
+	if (new_vec(&new->vup, 0, 1, 0) && *str)
+		ft_handle_error("Camera : invalid input\n", conf);
 	new->next = 0;
 	new->bpp = 0;
 	if (!*cam)
 		return ((*cam = new) > 0);
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = new;
-	return (1);
+	return ((tmp->next = new) > 0);
 }
 
 int		parse_l(t_light **lights, t_conf *conf, char *str)
@@ -89,6 +96,9 @@ int		parse_l(t_light **lights, t_conf *conf, char *str)
 	new->rgb = skip_atov(&str, conf, "Light RGB");
 	check_color(&new->rgb, "Light", conf);
 	v_div(&new->rgb, &new->rgb, 255);
+	skip_spaces(&str);
+	if (*str)
+		ft_handle_error("Light : invalid input\n", conf);
 	new->next = 0;
 	if (!*lights)
 	{
@@ -97,8 +107,7 @@ int		parse_l(t_light **lights, t_conf *conf, char *str)
 	}
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = new;
-	return (1);
+	return ((tmp->next = new) > 0);
 }
 
 int		parse_mat(char **str, t_mat *mat_ptr, t_conf *conf, char *type)
@@ -116,7 +125,6 @@ int		parse_mat(char **str, t_mat *mat_ptr, t_conf *conf, char *type)
 	}
 	check_color(&mat_ptr->attenuation, type, conf);
 	v_div(&mat_ptr->attenuation, &mat_ptr->attenuation, 255);
-	skip_spaces(str);
 	skip_spaces(str);
 	if (**str)
 	{
