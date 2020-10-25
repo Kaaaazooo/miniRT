@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:41:49 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/24 17:55:07 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/25 15:43:03 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_bool	hit_base(t_cy *cy, t_hit *hit, t_hit_rec *rec)
 t_bool	cy_check_caps(t_cy *cy, t_hit *hit, t_hit_rec *rec)
 {
 	t_hit		hit_c;
+	t_vec		tmp_v;
 	float		t1;
 	float		t2;
 
@@ -76,7 +77,8 @@ t_bool	cy_check_caps(t_cy *cy, t_hit *hit, t_hit_rec *rec)
 	hit_c.t_max = cy->height / 2;
 	v_mul(&hit_c.ray.dir, &hit_c.ray.dir, -1);
 	if (!t1 && !(t2 = inter_plane(&hit_c, &rec->p, &cy->ori)))
-		return (hit_base(cy, hit, rec));
+		if (v_dot(v_sub(&tmp_v, &cy->pos, &rec->p), &cy->ori))
+			return (hit_base(cy, hit, rec));
 	cy_get_normal(cy, hit, rec);
 	return (TRUE);
 }

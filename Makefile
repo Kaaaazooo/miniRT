@@ -6,7 +6,7 @@
 #    By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/10 19:12:22 by sabrugie          #+#    #+#              #
-#    Updated: 2020/10/19 14:21:57 by sabrugie         ###   ########.fr        #
+#    Updated: 2020/10/25 14:42:23 by sabrugie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ LDFLAGS = -L $(LIBFT_P) -lft -L $(MLX_P) -lmlx \
 
 BMP = $(addprefix bmp/, bmp.c)
 CAM = $(addprefix camera/, camera.c)
-DEBUG = $(addprefix debug/, debug.c)
 ERROR = $(addprefix check_error/, check_error.c)
 FREE_FNCT = $(addprefix free/, free_functions.c)
 EVENTS = $(addprefix events/, events.c)
@@ -39,7 +38,7 @@ UTILS = $(addprefix utils/, skip_functions.c utils.c)
 VEC = $(addprefix vector/, vector.c vector_operations1.c \
 		vector_operations2.c)
 
-SRCS =	$(addprefix srcs/, main.c $(BMP) $(CAM) $(DEBUG) $(ERROR) $(EVENTS) \
+SRCS =	$(addprefix srcs/, main.c $(BMP) $(CAM) $(ERROR) $(EVENTS) \
 		$(FREE_FNCT) $(MATERIAL) $(OBJECTS) $(PARSE) $(RAY) $(RENDER) \
 		$(UTILS) $(VEC))
 		

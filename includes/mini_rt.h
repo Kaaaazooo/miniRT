@@ -6,7 +6,7 @@
 /*   By: sabrugie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:26:26 by sabrugie          #+#    #+#             */
-/*   Updated: 2020/10/19 14:22:09 by sabrugie         ###   ########.fr       */
+/*   Updated: 2020/10/25 14:42:32 by sabrugie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include "scene.h"
 # include "ray.h"
 # include "parser.h"
-# include "debug.h"
 # include "events.h"
 # include "errors.h"
 # include "bmp.h"
